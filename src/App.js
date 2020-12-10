@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 import "./styles.css";
+import "./style/normalize.css";
 
 import Accounts from "./Accounts/AccountsSideBar";
 import MainView from "./Main/MainView";
