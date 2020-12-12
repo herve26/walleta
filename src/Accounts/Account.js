@@ -1,12 +1,13 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useState } from 'react';
+import styled, { css } from 'styled-components';
 
 const Container = styled.div`
-    border: 1px solid red;
     display: flex;
     align-items: center;
     border-radius: 12px;
-    border-color: ${props => props.color};
+    border: 2px solid ${props => props.colour};
+    padding: 8px;
+    background-color: ${props => props.active ? props.colour : 'white'};
 `
 const Title = styled.h3`
     margin: 0;
@@ -15,10 +16,12 @@ const Balance = styled.h4`
     margin: 0;
 `
 const Info = styled.div`
-    border: 1px solid blue;
+    margin-left: 8px;
+    color: ${({active}) => active ? 'white' : 'black'};
 `
 const Icon = styled.div`
-    border: 1px solid red;
+    background-color: ${props => props.active ? 'white' : props.colour};
+    color: ${({active, colour}) => active ? colour : 'white'};
     height: 36px;
     width: 36px;
     border-radius: 50%;
@@ -28,10 +31,11 @@ const Icon = styled.div`
 `
 
 export default function Account({title, currency, balance, color}){
+    const [isActive, setActive] = useState(false)
     return (
-        <Container color={color}>
-            <Icon>W</Icon>
-            <Info>
+        <Container active={isActive} colour={color} onClick={() => setActive(!isActive)}>
+            <Icon active={isActive} colour={color}>W</Icon>
+            <Info active={isActive}>
                 <Title>{title}</Title>
                 <Balance>{currency}{balance}</Balance>
             </Info>
