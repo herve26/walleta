@@ -16,6 +16,7 @@ const Container = styled.div`
   border: 1px solid red;
   height: 100vh;
   padding: 20px;
+  background: #F3F8FB;
 `;
 
 export default function App() {

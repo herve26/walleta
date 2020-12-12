@@ -12,6 +12,7 @@ const Container = styled.aside`
   border-radius: 24px;
   box-shadow: 0px 3px 6px #00000029;
   height: 100%;
+  background: white;
 `;
 
 const ListContainer = styled.div`
