@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
+
+
 
 const Container = styled.div`
     display: flex;
@@ -30,11 +32,11 @@ const Icon = styled.div`
     justify-content: center;
 `
 
-export default function Account({title, currency, balance, color}){
+export default function Account({title, currency, balance, color, icon}){
     const [isActive, setActive] = useState(false)
     return (
         <Container active={isActive} colour={color} onClick={() => setActive(!isActive)}>
-            <Icon active={isActive} colour={color}>W</Icon>
+            <Icon active={isActive} colour={color}>{icon}</Icon>
             <Info active={isActive}>
                 <Title>{title}</Title>
                 <Balance>{currency}{balance}</Balance>
