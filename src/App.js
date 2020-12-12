@@ -3,10 +3,13 @@ import styled from "styled-components";
 
 import "./styles.css";
 import "./style/normalize.css";
+import { GlobalStyle } from './globalStyle';
 
 import Accounts from "./Accounts/AccountsSideBar";
 import MainView from "./Main/MainView";
 import TransactionInput from "./Aside/TransactionsInput";
+
+
 
 const Container = styled.div`
   display: flex;
@@ -16,6 +19,7 @@ const Container = styled.div`
 export default function App() {
   return (
     <Container>
+      <GlobalStyle/>
       <Accounts />
       <MainView />
       <TransactionInput />
