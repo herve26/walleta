@@ -14,13 +14,15 @@ import TransactionInput from "./Aside/TransactionsInput";
 const Container = styled.div`
   display: flex;
   border: 1px solid red;
+  height: 100vh;
+  padding: 20px;
 `;
 
 export default function App() {
   return (
     <Container>
       <GlobalStyle/>
-      <Accounts />
+      <Accounts accounts={[]}/>
       <MainView />
       <TransactionInput />
     </Container>
