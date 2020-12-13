@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Formik, ErrorMessage } from 'formik';
+import { Formik, FieldElm, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import styled from 'styled-components';
 
@@ -36,7 +36,7 @@ const ButtonContainer = styled.div`
 export default function AddAccountForm({currencies, onClose}){
     const initialValues = {
         title: '',
-        currency: '',
+        currency: Object.keys(currencies)[0],
         icon: '',
         amount: 0
     }
@@ -46,6 +46,7 @@ export default function AddAccountForm({currencies, onClose}){
         icon: Yup.string().required(),
         amount: Yup.number().positive().integer()
     })
+    const currenciesList = Object.entries(currencies).map(([sym, name]) => <option value={sym}>{name}</option>)
     return(
         <Formik
             initialValues={initialValues}
@@ -67,14 +68,14 @@ export default function AddAccountForm({currencies, onClose}){
                         placeholder="Title"
                         error={(errors.title && (values.title || touched.title))}
                     />
-                    <Field 
-                        value={values.currency} 
-                        onChange={handleChange} 
-                        type="text" 
+                    <Field
+                        as="select"
                         name="currency" 
                         placeholder="Currency"
+                        onChange={handleChange}
                         error={(errors.currency && (values.currency || touched.currency))}
-                    />
+                        value={values.currency}
+                    >{currenciesList}</Field>
                     <Field 
                         value={values.icon} 
                         onChange={handleChange} 
