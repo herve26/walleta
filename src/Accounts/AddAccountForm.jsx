@@ -4,11 +4,12 @@ import * as Yup from 'yup';
 import styled from 'styled-components';
 
 const Form = styled.form`
-    /* width: 100%; */
+    width: 100%;
 `
 
 const Field = styled.input`
-    border: none;
+    border: 2px solid transparent;
+    border-color: ${({error}) => error ? '#F44336' : 'transparent'};
     display: block;
     width: 100%;
     font-size: 12px;
@@ -20,14 +21,18 @@ const Field = styled.input`
 
 const Button = styled.button`
     border: none;
-    background-color: #2699FB;
+    background-color: ${props => props.disabled ? 'grey' : '#2699FB'};
     font-size: 12px;
     padding: 8px 16px;
     color: white;
     border-radius: 12px;
 `
 
-export default function AddAccountForm(){
+const ButtonContainer = styled.div`
+    /* border: 1px solid red; */
+`
+
+export default function AddAccountForm({close}){
     const initialValues = {
         title: '',
         currency: '',
@@ -35,7 +40,7 @@ export default function AddAccountForm(){
         amount: 0
     }
     const validationSchema = Yup.object().shape({
-        title: Yup.string().required(),
+        title: Yup.string().min(2).required(),
         currency: Yup.string().required(),
         icon: Yup.string().required(),
         amount: Yup.number().positive().integer()
@@ -47,13 +52,48 @@ export default function AddAccountForm(){
             onSubmit={values => {console.log(values)}}
         >
             {formik => {
-                const {errors, isValid, isSubmitting} = formik;
-                return (<Form>
-                    <Field type="text" name="title" placeholder="Title"/>
-                    <Field type="text" name="currency" placeholder="Currency"/>
-                    <Field type="text" name="icon" placeholder="Icon"/>
-                    <Field type="number" name="amount" placeholder="Initial Amount"/>
-                    <Button type="submit" disabled={isSubmitting}>Add Account</Button>
+                const {errors, touched, isValid, isSubmitting, handleChange, handleSubmit, values} = formik;
+                console.log(errors)
+                console.log(touched)
+                console.log(isValid)
+                console.log(values)
+                return (<Form onSubmit={handleSubmit}>
+                    <Field 
+                        value={values.title} 
+                        onChange={handleChange} 
+                        type="text" 
+                        name="title" 
+                        placeholder="Title"
+                        error={(errors.title && (values.title || touched.title))}
+                    />
+                    <Field 
+                        value={values.currency} 
+                        onChange={handleChange} 
+                        type="text" 
+                        name="currency" 
+                        placeholder="Currency"
+                        error={(errors.currency && (values.currency || touched.currency))}
+                    />
+                    <Field 
+                        value={values.icon} 
+                        onChange={handleChange} 
+                        type="text" 
+                        name="icon" 
+                        placeholder="Icon"
+                        error={(errors.icon && (values.icon || touched.icon))}
+                    />
+                    <Field 
+                        value={values.amount} 
+                        onChange={handleChange} 
+                        type="number" 
+                        name="amount" 
+                        placeholder="Initial Amount"
+                        error={(errors.amount && (values.amount || touched.amount))}
+                    />
+                    <ButtonContainer>
+                        <Button type="submit" disabled={isSubmitting}>Add Account</Button>
+                        <Button type="button" onClick={(e) => {close(); e.stopPropagation();}}>close</Button>
+                    </ButtonContainer>
                 </Form>)
             }}
         </Formik>
