@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Formik, FieldElm, ErrorMessage } from 'formik';
+import { Formik, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import styled from 'styled-components';
 
@@ -46,7 +46,7 @@ export default function AddAccountForm({currencies, onClose}){
         icon: Yup.string().required(),
         amount: Yup.number().positive().integer()
     })
-    const currenciesList = Object.entries(currencies).map(([sym, name]) => <option value={sym}>{name}</option>)
+    const currenciesList = Object.entries(currencies).map(([sym, name]) => <option key={sym} value={sym}>{name}</option>)
     return(
         <Formik
             initialValues={initialValues}
