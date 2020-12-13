@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Formik, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import styled from 'styled-components';
@@ -32,7 +33,7 @@ const ButtonContainer = styled.div`
     /* border: 1px solid red; */
 `
 
-export default function AddAccountForm({close}){
+export default function AddAccountForm({currencies, onClose}){
     const initialValues = {
         title: '',
         currency: '',
@@ -55,7 +56,7 @@ export default function AddAccountForm({close}){
                 const {errors, touched, isValid, isSubmitting, handleChange, handleSubmit, values} = formik;
                 console.log(errors)
                 console.log(touched)
-                console.log(isValid)
+                console.log(currencies)
                 console.log(values)
                 return (<Form onSubmit={handleSubmit}>
                     <Field 
@@ -92,10 +93,15 @@ export default function AddAccountForm({close}){
                     />
                     <ButtonContainer>
                         <Button type="submit" disabled={isSubmitting}>Add Account</Button>
-                        <Button type="button" onClick={(e) => {close(); e.stopPropagation();}}>close</Button>
+                        <Button type="button" onClick={(e) => {onClose(); e.stopPropagation();}}>close</Button>
                     </ButtonContainer>
                 </Form>)
             }}
         </Formik>
     )
+}
+
+AddAccountForm.propTypes = {
+    currencies: PropTypes.object.isRequired,
+    onClose: PropTypes.func
 }
