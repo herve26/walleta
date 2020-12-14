@@ -4,6 +4,14 @@ import { Formik, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import styled from 'styled-components';
 
+import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
+import PhoneAndroidIcon from '@material-ui/icons/PhoneAndroid';
+
+import FormIcons from './FormIcons';
+
+
+const iconsList = [AccountBalanceWalletIcon, PhoneAndroidIcon]
+
 const Form = styled.form`
     width: 100%;
 `
@@ -18,8 +26,16 @@ const Field = styled.input`
     background-color: #F3F8FB;
     margin-bottom: 8px;
     border-radius: 12px;
+    height: 36px;
 `
-
+const FieldHidden = styled(Field)`
+    height: 0px;
+    width: 0px;
+    padding: 0px;
+    visibility: hidden;
+    margin: 0;
+    border: 0px;
+`
 const Button = styled.button`
     border: none;
     background-color: ${props => props.disabled ? 'grey' : '#2699FB'};
@@ -54,7 +70,7 @@ export default function AddAccountForm({currencies, onClose}){
             onSubmit={values => {console.log(values)}}
         >
             {formik => {
-                const {errors, touched, isValid, isSubmitting, handleChange, handleSubmit, values} = formik;
+                const {setFieldValue, errors, touched, isValid, isSubmitting, handleChange, handleSubmit, values} = formik;
                 console.log(errors)
                 console.log(touched)
                 console.log(currencies)
@@ -76,14 +92,17 @@ export default function AddAccountForm({currencies, onClose}){
                         error={(errors.currency && (values.currency || touched.currency))}
                         value={values.currency}
                     >{currenciesList}</Field>
-                    <Field 
+                    <FieldHidden
                         value={values.icon} 
-                        onChange={handleChange} 
                         type="text" 
                         name="icon" 
                         placeholder="Icon"
                         error={(errors.icon && (values.icon || touched.icon))}
+                        onChange={handleChange}
                     />
+                    <FormIcons 
+                        icons={iconsList} 
+                        onChange={index => setFieldValue('icon', index)}/>
                     <Field 
                         value={values.amount} 
                         onChange={handleChange} 
@@ -91,6 +110,7 @@ export default function AddAccountForm({currencies, onClose}){
                         name="amount" 
                         placeholder="Initial Amount"
                         error={(errors.amount && (values.amount || touched.amount))}
+                        hidden
                     />
                     <ButtonContainer>
                         <Button type="submit" disabled={isSubmitting}>Add Account</Button>
