@@ -7,7 +7,7 @@ import PhoneAndroidIcon from '@material-ui/icons/PhoneAndroid';
 
 export default {
 	component: FormIcons,
-	title: 'Form Icon Container',
+	title: 'Account Panel/New Account Button/Add Account Form/Form Icon Container',
 	argTypes: { onClicked: { action: 'clicked' }, onChange: {action: 'changed'} }
 }
 

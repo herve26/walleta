@@ -4,7 +4,7 @@ import AccountsSideBar from './AccountsSideBar';
 
 export default {
     component: AccountsSideBar,
-    title: 'Account Side Bar'
+    title: 'Account Panel'
 }
 
 const Template = args => <AccountsSideBar {...args} />

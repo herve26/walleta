@@ -5,7 +5,7 @@ import NewAccount from './NewAccount';
 
 export default {
     component: NewAccount,
-    title: 'New Account Button'
+    title: 'Account Panel/New Account Button'
 }
 
 const Template = args => <NewAccount {...args}/>

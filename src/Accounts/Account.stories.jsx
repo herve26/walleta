@@ -6,7 +6,7 @@ import Account from './Account'
 
 export default {
     component: Account,
-    title: 'Account Button'
+    title: 'Account Panel/Account Button'
 }
 
 const Template = args => <Account {...args}/>
