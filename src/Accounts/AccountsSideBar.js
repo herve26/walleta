@@ -1,5 +1,8 @@
 import React from "react";
+import { connect } from 'react-redux';
 import styled from "styled-components";
+
+import { accountSlice } from '../Redux/store';
 
 import Account from './Account';
 import NewAccount from './NewAccount';
@@ -35,8 +38,13 @@ const LogoContainer = styled.h1`
 //   {id:'3', title: 'Account 3', currency: '$', balance: 5000, color: 'red'}
 // ]
 
-export default function AccountsSideBar({accounts}) {
-  const accountsList = accounts.map(account => <Account key={account.id} {...account}/>) 
+console.log(accountSlice)
+
+function AccountsSideBar({accounts}) {
+  console.log(accounts)
+  const accountsArr = []
+  const accountsList = accountsArr.map(account => <Account key={account.id} {...account}/>)
+
   return (
     <Container>
       <LogoContainer>
@@ -44,8 +52,14 @@ export default function AccountsSideBar({accounts}) {
       </LogoContainer>
       <ListContainer>
         {accountsList}
+        {accounts}
       </ListContainer>
       <NewAccount/>
     </Container>
   );
 }
+
+export default connect(state => {
+  console.log(state)
+  return {accounts: state}
+})(AccountsSideBar)
