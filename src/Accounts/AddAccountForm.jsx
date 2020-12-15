@@ -73,11 +73,8 @@ export default function AddAccountForm({currencies, onClosed, onSubmitted}){
             onSubmit={(values, actions) => { onSubmitted(values); actions.setSubmitting(false) }}
         >
             {formik => {
-                const {setFieldValue, errors, touched, isValid, isSubmitting, handleChange, handleSubmit, values} = formik;
-                console.log(errors)
-                console.log(touched)
-                console.log(currencies)
-                console.log(values)
+                const {setFieldValue, errors, touched, isSubmitting, handleChange, handleSubmit, values} = formik;
+
                 return (<Form onSubmit={handleSubmit}>
                     <Field 
                         value={values.title} 
@@ -129,5 +126,6 @@ export default function AddAccountForm({currencies, onClosed, onSubmitted}){
 
 AddAccountForm.propTypes = {
     currencies: PropTypes.object.isRequired,
-    onClose: PropTypes.func
+    onClosed: PropTypes.func,
+    onSubmitted: PropTypes.func
 }
