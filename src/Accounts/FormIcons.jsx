@@ -71,11 +71,12 @@ const IconContainer = styled.span`
 
 `
 
-export default function FormIcons({onChange, icons}){
+export default function FormIcons({icons, tabindex, onChanged}){
 	const [isOpen, setOpen] = useState(false)
 	const [currentIcon, setCurrentIcon] = useState(0)
+	// const [selected, setSelected] = useState(0)
 	useEffect(() => {
-		onChange(currentIcon)
+		onChanged(currentIcon)
 	}, [currentIcon])
 	const iconsList = icons.map((Icon, index) => 
 				<IconContainer 
@@ -86,9 +87,29 @@ export default function FormIcons({onChange, icons}){
 					<Icon fontSize='inherit'/>
 				</IconContainer>)
 	const CurrentIcon = icons[currentIcon]
+	const handleKeypress = e => {
+		if(e.key === " " || e.key === 'Enter')
+			setOpen(!isOpen)
+		if(e.key === 'ArrowLeft' && isOpen){
+			const sel = currentIcon - 1
+			setCurrentIcon(sel >= 0 ? sel : icons.length - 1)
+		}
+		if(e.key === 'ArrowRight' && isOpen){
+			const sel = currentIcon + 1
+			setCurrentIcon(sel < icons.length ? sel : 0)
+		}
+	}
 	return(
 		<Container>
-			<CurrentIconContainer isOpen={isOpen} onClick={() => setOpen(!isOpen)}><CurrentIcon fontSize='inherit'/></CurrentIconContainer>
+			<CurrentIconContainer 
+				tabIndex={tabindex}
+				isOpen={isOpen} 
+				onClick={() => setOpen(!isOpen)}
+				onKeyDown={e => handleKeypress(e)}
+				onBlur={() => setOpen(false)}
+			>
+				<CurrentIcon fontSize='inherit'/>
+			</CurrentIconContainer>
 			<IconsContainer isOpen={isOpen}>{iconsList}</IconsContainer>
 		</Container>
 	)
