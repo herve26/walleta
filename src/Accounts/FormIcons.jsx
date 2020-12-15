@@ -71,7 +71,7 @@ const IconContainer = styled.span`
 
 `
 
-export default function FormIcons({icons, tabindex, onChanged}){
+export default function FormIcons({name, value, icons, tabindex, onChanged}){
 	const [isOpen, setOpen] = useState(false)
 	const [currentIcon, setCurrentIcon] = useState(0)
 	useEffect(() => {
@@ -100,8 +100,9 @@ export default function FormIcons({icons, tabindex, onChanged}){
 	}
 	return(
 		<Container>
+			<input value={value} name={name} type='hidden'/> 
 			<CurrentIconContainer 
-				tabIndex={tabindex}
+				tabIndex={tabindex || "0"}
 				isOpen={isOpen} 
 				onClick={() => setOpen(!isOpen)}
 				onKeyDown={e => handleKeypress(e)}

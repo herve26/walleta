@@ -56,7 +56,7 @@ export default function AddAccountForm({currencies, iconsList, onClosed, onSubmi
     const validationSchema = Yup.object().shape({
         title: Yup.string().min(2).required(),
         currency: Yup.string().required(),
-        icon: Yup.string().required(),
+        icon: Yup.number().min(0).max(iconsList.length - 1).required(),
         amount: Yup.number().integer().min(0)
     })
     const currenciesList = Object.entries(currencies).map(([sym, name]) => <option key={sym} value={sym}>{name}</option>)
@@ -86,18 +86,12 @@ export default function AddAccountForm({currencies, iconsList, onClosed, onSubmi
                         error={(errors.currency && (values.currency || touched.currency))}
                         value={values.currency}
                     >{currenciesList}</Field>
-                    <FieldHidden
-                        value={values.icon} 
-                        type="hidden" 
-                        name="icon" 
-                        placeholder="Icon"
-                        error={(errors.icon && (values.icon || touched.icon))}
-                        onChange={handleChange}
-                    />
-                    <FormIcons 
+                    <FormIcons
+                        value={values.icon}
+                        name="icon"
                         icons={iconsList} 
                         onChanged={index => setFieldValue('icon', index)}
-                        tabindex="0"
+                        error={(errors.icon && (values.icon || touched.icon))}
                     />
                     <Field 
                         value={values.amount} 
