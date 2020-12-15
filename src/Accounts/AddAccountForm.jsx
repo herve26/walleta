@@ -4,13 +4,7 @@ import { Formik, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import styled from 'styled-components';
 
-import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
-import PhoneAndroidIcon from '@material-ui/icons/PhoneAndroid';
-
 import FormIcons from './FormIcons';
-
-
-const iconsList = [AccountBalanceWalletIcon, PhoneAndroidIcon]
 
 const Form = styled.form`
     width: 100%;
@@ -52,7 +46,7 @@ const ButtonContainer = styled.div`
     /* border: 1px solid red; */
 `
 
-export default function AddAccountForm({currencies, onClosed, onSubmitted}){
+export default function AddAccountForm({currencies, iconsList, onClosed, onSubmitted}){
     const initialValues = {
         title: '',
         currency: Object.keys(currencies)[0],

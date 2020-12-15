@@ -2,6 +2,7 @@ import React from 'react';
 
 import AddAccountForm from './AddAccountForm';
 import currencies from '../currencies.json';
+import {Default as FormIconsStories} from './FormIcons.stories';
 
 export default {
     component: AddAccountForm,
@@ -13,5 +14,6 @@ const Template = args => <AddAccountForm {...args} />
 
 export const Default = Template.bind({})
 Default.args = {
-	currencies: currencies
+	currencies: currencies,
+	iconsList: FormIconsStories.args.icons
 }
