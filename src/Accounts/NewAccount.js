@@ -19,10 +19,6 @@ const Container = styled.div`
     /*background: white;*/
 `
 const Formcontainer = styled.div`
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
     background: white;
     ${({isOpen}) => !isOpen && css`
         height: 0;
@@ -46,7 +42,7 @@ export function NewAccount({add_account, remove_account}){
         setOpen(false)
         console.log(add_account)
         console.log(remove_account)
-        add_account()
+        add_account(values)
     }
     const handleClose = () => {
         console.log(formRef)

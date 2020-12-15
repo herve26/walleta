@@ -33,17 +33,13 @@ const LogoContainer = styled.h1`
   text-transform: uppercase;
 `
 
-// const accounts = [{id:'1', title: 'Account 1', currency: '$', balance: 15000, color: 'yellow'},
-//   {id:'2', title: 'Account 2', currency: '$', balance: 1000, color: 'blue'},
-//   {id:'3', title: 'Account 3', currency: '$', balance: 5000, color: 'red'}
-// ]
+// const a = {id: uuid ?}
 
 console.log(accountSlice)
 
-function AccountsSideBar({accounts}) {
+export function AccountsSideBar({accounts}) {
   console.log(accounts)
-  const accountsArr = []
-  const accountsList = accountsArr.map(account => <Account key={account.id} {...account}/>)
+  const accountsList = accounts.map(account => <Account key={account.id} {...account}/>)
 
   return (
     <Container>
@@ -52,14 +48,13 @@ function AccountsSideBar({accounts}) {
       </LogoContainer>
       <ListContainer>
         {accountsList}
-        {accounts}
       </ListContainer>
       <NewAccount/>
     </Container>
   );
 }
 
-export default connect(state => {
-  console.log(state)
-  return {accounts: state}
+export default connect(({accounts}) => {
+  console.log(accounts)
+  return {accounts}
 })(AccountsSideBar)
