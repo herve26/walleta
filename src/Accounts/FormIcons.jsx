@@ -74,7 +74,6 @@ const IconContainer = styled.span`
 export default function FormIcons({icons, tabindex, onChanged}){
 	const [isOpen, setOpen] = useState(false)
 	const [currentIcon, setCurrentIcon] = useState(0)
-	// const [selected, setSelected] = useState(0)
 	useEffect(() => {
 		onChanged(currentIcon)
 	}, [currentIcon])
@@ -82,7 +81,7 @@ export default function FormIcons({icons, tabindex, onChanged}){
 				<IconContainer 
 					current={currentIcon === index} 
 					key={index} 
-					onClick={() => {setOpen(false);setCurrentIcon(index)}}
+					onClick={() => {setCurrentIcon(index); setOpen(false);}}
 				>
 					<Icon fontSize='inherit'/>
 				</IconContainer>)
@@ -106,7 +105,6 @@ export default function FormIcons({icons, tabindex, onChanged}){
 				isOpen={isOpen} 
 				onClick={() => setOpen(!isOpen)}
 				onKeyDown={e => handleKeypress(e)}
-				onBlur={() => setOpen(false)}
 			>
 				<CurrentIcon fontSize='inherit'/>
 			</CurrentIconContainer>
@@ -117,5 +115,6 @@ export default function FormIcons({icons, tabindex, onChanged}){
 
 FormIcons.propTypes = {
 	icons: PropTypes.array.isRequired,
-	onClicked: PropTypes.func.isRequired
+	tabindex: PropTypes.string,
+	onChanged: PropTypes.func.isRequired
 }
