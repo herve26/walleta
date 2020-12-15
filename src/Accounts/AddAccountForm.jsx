@@ -49,7 +49,7 @@ const ButtonContainer = styled.div`
     /* border: 1px solid red; */
 `
 
-export default function AddAccountForm({currencies, onClose}){
+export default function AddAccountForm({currencies, onClosed, onSubmitted}){
     const initialValues = {
         title: '',
         currency: Object.keys(currencies)[0],
@@ -67,7 +67,7 @@ export default function AddAccountForm({currencies, onClose}){
         <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
-            onSubmit={values => {console.log(values)}}
+            onSubmit={values => { onSubmitted(values) }}
         >
             {formik => {
                 const {setFieldValue, errors, touched, isValid, isSubmitting, handleChange, handleSubmit, values} = formik;
@@ -94,7 +94,7 @@ export default function AddAccountForm({currencies, onClose}){
                     >{currenciesList}</Field>
                     <FieldHidden
                         value={values.icon} 
-                        type="text" 
+                        type="hidden" 
                         name="icon" 
                         placeholder="Icon"
                         error={(errors.icon && (values.icon || touched.icon))}
@@ -102,7 +102,9 @@ export default function AddAccountForm({currencies, onClose}){
                     />
                     <FormIcons 
                         icons={iconsList} 
-                        onChange={index => setFieldValue('icon', index)}/>
+                        onChanged={index => setFieldValue('icon', index)}
+                        tabindex="0"
+                    />
                     <Field 
                         value={values.amount} 
                         onChange={handleChange} 
@@ -114,7 +116,7 @@ export default function AddAccountForm({currencies, onClose}){
                     />
                     <ButtonContainer>
                         <Button type="submit" disabled={isSubmitting}>Add Account</Button>
-                        <Button type="button" onClick={(e) => {onClose(); e.stopPropagation();}}>close</Button>
+                        <Button type="button" onClick={(e) => {onClosed(); e.stopPropagation();}}>close</Button>
                     </ButtonContainer>
                 </Form>)
             }}

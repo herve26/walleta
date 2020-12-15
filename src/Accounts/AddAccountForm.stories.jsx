@@ -5,7 +5,8 @@ import currencies from '../currencies.json';
 
 export default {
     component: AddAccountForm,
-    title: 'Account Panel/New Account Button/Add Account Form'
+    title: 'Account Panel/New Account Button/Add Account Form',
+    argTypes: { onClosed: { action : 'Form Closed' }, onSubmitted: { action: 'Form Submitted'} },
 }
 
 const Template = args => <AddAccountForm {...args} />
