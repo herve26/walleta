@@ -43,6 +43,9 @@ const Button = styled.button`
     padding: 8px 16px;
     color: white;
     border-radius: 12px;
+    &:first-child{
+        margin-right: 8px;
+    }
 `
 
 const ButtonContainer = styled.div`
@@ -60,14 +63,14 @@ export default function AddAccountForm({currencies, onClosed, onSubmitted}){
         title: Yup.string().min(2).required(),
         currency: Yup.string().required(),
         icon: Yup.string().required(),
-        amount: Yup.number().positive().integer()
+        amount: Yup.number().integer().min(0)
     })
     const currenciesList = Object.entries(currencies).map(([sym, name]) => <option key={sym} value={sym}>{name}</option>)
     return(
         <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
-            onSubmit={values => { onSubmitted(values) }}
+            onSubmit={(values, actions) => { onSubmitted(values); actions.setSubmitting(false) }}
         >
             {formik => {
                 const {setFieldValue, errors, touched, isValid, isSubmitting, handleChange, handleSubmit, values} = formik;
