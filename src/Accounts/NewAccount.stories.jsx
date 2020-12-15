@@ -1,7 +1,7 @@
 import React from 'react';
 
 
-import NewAccount from './NewAccount';
+import { NewAccount } from './NewAccount';
 
 export default {
     component: NewAccount,
