@@ -43,9 +43,13 @@ const NewAccountButtonContainer = styled.div`
 
 console.log(accountSlice)
 
-export function AccountsSideBar({accounts}) {
+export function AccountsSideBar({accounts, select_one}) {
   console.log(accounts)
-  const accountsList = accounts.map(account => <Account key={account.id} {...account}/>)
+  const handleAccountSelection = idx => {
+    console.log(idx)
+    select_one(idx)
+  }
+  const accountsList = accounts.map((account, idx) => <Account idx={idx} onActivated={handleAccountSelection} key={account.id} {...account}/>)
   return (
     <Container>
       <LogoContainer>
@@ -61,4 +65,4 @@ export function AccountsSideBar({accounts}) {
   );
 }
 
-export default connect(({accounts}) => ({accounts}))(AccountsSideBar)
+export default connect(({accounts}) => ({accounts}), accountSlice.actions)(AccountsSideBar)

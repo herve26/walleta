@@ -33,6 +33,7 @@ export function NewAccount({add_account, remove_account, iconsList, colorsList})
     const [isOpen, setOpen] = useState(false)
     const handleSubmit = values => {
         setOpen(false)
+        values.selected = false;
         add_account(values)
     }
     const handleClose = () => {  

@@ -18,13 +18,12 @@ const Currency = styled.span`
     margin-right: 4px;
 `
 
-export default function Account({title, currency, amount, color, icon}){
-    const [isActive, setActive] = useState(false)
+export default function Account({title, currency, amount, color, icon, selected, idx, onActivated}){
     const Icon = icons[icon]
     return (
-        <Container active={isActive} colour={colors[color]} onClick={() => setActive(!isActive)}>
-            <IconContainer active={isActive} colour={colors[color]}><Icon/></IconContainer>
-            <Info active={isActive}>
+        <Container active={selected} colour={colors[color]} onClick={() => onActivated(idx)}>
+            <IconContainer active={selected} colour={colors[color]}><Icon/></IconContainer>
+            <Info active={selected}>
                 <Title>{title}</Title>
             </Info>
         </Container>
