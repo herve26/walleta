@@ -4,7 +4,7 @@ import { Formik, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import styled from 'styled-components';
 
-import FormIcons from './FormIcons';
+import FieldCustom from './FieldCustom';
 
 const Form = styled.form`
     width: 100%;
@@ -46,20 +46,25 @@ const ButtonContainer = styled.div`
     /* border: 1px solid red; */
 `
 
-export default function AddAccountForm({currencies, iconsList, onClosed, onSubmitted}){
+export default function AddAccountForm({currencies, iconsList, colorsList, onClosed, onSubmitted}){
     const initialValues = {
         title: '',
         currency: Object.keys(currencies)[0],
         icon: '',
-        amount: 0
+        amount: 0,
+        color: ''
     }
     const validationSchema = Yup.object().shape({
         title: Yup.string().min(2).required(),
         currency: Yup.string().required(),
         icon: Yup.number().min(0).max(iconsList.length - 1).required(),
-        amount: Yup.number().integer().min(0)
+        amount: Yup.number().integer().min(0),
+        color: Yup.number().required()
     })
     const currenciesList = Object.entries(currencies).map(([sym, name]) => <option key={sym} value={sym}>{name}</option>)
+    const colorElements = colorsList.map((color, index) => <div key={index} style={{background: `${color}`, height: '100%', width: '100%', borderRadius: 8}}></div>)
+    const iconElements = iconsList.map((Icon, index) => <Icon key={index} fontSize='inherit'/>)
+    console.log(iconsList)
     return(
         <Formik
             initialValues={initialValues}
@@ -86,12 +91,19 @@ export default function AddAccountForm({currencies, iconsList, onClosed, onSubmi
                         error={(errors.currency && (values.currency || touched.currency))}
                         value={values.currency}
                     >{currenciesList}</Field>
-                    <FormIcons
+                    <FieldCustom
                         value={values.icon}
                         name="icon"
-                        icons={iconsList} 
+                        elements={iconElements} 
                         onChanged={index => setFieldValue('icon', index)}
                         error={(errors.icon && (values.icon || touched.icon))}
+                    />
+                    <FieldCustom
+                        value={values.color}
+                        name="color"
+                        elements={colorElements}
+                        onChanged={index => setFieldValue('color', index)}
+                        error={errors.color && (values.color || touched.color)}
                     />
                     <Field 
                         value={values.amount} 
@@ -115,5 +127,7 @@ export default function AddAccountForm({currencies, iconsList, onClosed, onSubmi
 AddAccountForm.propTypes = {
     currencies: PropTypes.object.isRequired,
     onClosed: PropTypes.func,
-    onSubmitted: PropTypes.func
+    onSubmitted: PropTypes.func,
+    iconsList: PropTypes.array,
+    colorsList: PropTypes.array
 }

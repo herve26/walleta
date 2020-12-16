@@ -117,7 +117,9 @@ export default function FieldCustom({name, value, elements, tabindex, onChanged}
 }
 
 FieldCustom.propTypes = {
-	elements: PropTypes.array.isRequired,
+	name: PropTypes.string.isRequired,
+	value: PropTypes.any.isRequired,
+	elements: PropTypes.arrayOf(PropTypes.element).isRequired,
 	tabindex: PropTypes.string,
 	onChanged: PropTypes.func.isRequired
 }

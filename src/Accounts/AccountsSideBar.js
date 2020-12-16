@@ -7,6 +7,9 @@ import { accountSlice } from '../Redux/store';
 import Account from './Account';
 import NewAccount from './NewAccount';
 
+import iconsList from '../icons';
+import colorsList from '../colors';
+
 const Container = styled.aside`
   /* border: 1px solid blue; */
   width: 250px;
@@ -40,7 +43,6 @@ console.log(accountSlice)
 export function AccountsSideBar({accounts}) {
   console.log(accounts)
   const accountsList = accounts.map(account => <Account key={account.id} {...account}/>)
-
   return (
     <Container>
       <LogoContainer>
@@ -49,12 +51,9 @@ export function AccountsSideBar({accounts}) {
       <ListContainer>
         {accountsList}
       </ListContainer>
-      <NewAccount/>
+      <NewAccount iconsList={iconsList} colorsList={colorsList}/>
     </Container>
   );
 }
 
-export default connect(({accounts}) => {
-  console.log(accounts)
-  return {accounts}
-})(AccountsSideBar)
+export default connect(({accounts}) => ({accounts}))(AccountsSideBar)

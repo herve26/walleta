@@ -4,8 +4,6 @@ import styled, {css} from 'styled-components';
 import {Transition} from 'react-transition-group';
 
 import AddIcon from '@material-ui/icons/Add';
-import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
-import PhoneAndroidIcon from '@material-ui/icons/PhoneAndroid';
 
 import { accountSlice } from '../Redux/store';
 
@@ -31,27 +29,16 @@ const Button = styled(ButtonContainer)`
     `}
 `
 
-const iconsList = [AccountBalanceWalletIcon, PhoneAndroidIcon]
-
-export function NewAccount({add_account, remove_account}){
+export function NewAccount({add_account, remove_account, iconsList, colorsList}){
     const [isOpen, setOpen] = useState(false)
-    // const [formHeight, setFormHeight] = useState(0)
-    const formRef = useRef(null)
     const handleSubmit = values => {
-        console.log(values);
         setOpen(false)
-        console.log(add_account)
-        console.log(remove_account)
         add_account(values)
     }
-    const handleClose = () => {
-        console.log(formRef)
-        // formRef.current.style.height = formRef.current.offsetHeight + 'px';  
+    const handleClose = () => {  
         setOpen(false)
-        // formRef.current.style.height = 0 + 'px';
     }
     const handleOpen = () => {
-        // console.log(formRef)
         setOpen(true)
     }
     return(
@@ -62,14 +49,14 @@ export function NewAccount({add_account, remove_account}){
             </Button>
             <Transition in={isOpen} timeout={1000}>
                 {(state) => 
-                    <Formcontainer 
-                        ref={formRef} 
+                    <Formcontainer
                         state={state}
                         isOpen={isOpen}
                     >
                         <AddAccountForm 
                             currencies={currencies} 
-                            iconsList={iconsList} 
+                            iconsList={iconsList}
+                            colorsList={colorsList}
                             onSubmitted={handleSubmit} 
                             onClosed={handleClose}
                         />
