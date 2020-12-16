@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-import {ButtonContainer as Container, IconContainer} from './stylesComponent'; 
+import {ButtonContainer as Container, IconContainer} from './stylesComponent';
+import colors from '../colors.json';
+import icons from '../icons'
 
 const Title = styled.h3`
     margin: 0;
@@ -19,9 +21,10 @@ const Currency = styled.span`
 
 export default function Account({title, currency, amount, color, icon}){
     const [isActive, setActive] = useState(false)
+    const Icon = icons[icon]
     return (
-        <Container active={isActive} colour={color} onClick={() => setActive(!isActive)}>
-            <IconContainer active={isActive} colour={color}>{icon}</IconContainer>
+        <Container active={isActive} colour={colors[color]} onClick={() => setActive(!isActive)}>
+            <IconContainer active={isActive} colour={colors[color]}><Icon/></IconContainer>
             <Info active={isActive}>
                 <Title>{title}</Title>
                 <Balance><Currency>{currency}</Currency>{amount}</Balance>

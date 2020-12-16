@@ -20,5 +20,6 @@ export const ButtonContainer = styled.div`
     border: 2px solid ${props => props.colour};
     padding: 4px;
     background-color: ${props => props.active ? props.colour : 'white'};
+    margin-bottom: 8px;
     /* height: 3.75rem; */
 `
