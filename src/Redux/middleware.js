@@ -6,7 +6,7 @@ export const identifyAccount = store => next => action => {
 
 	console.log(action.type === add_account.toString())
 	if (action.type === add_account.toString()){
-		action.payload.id = store.getState().accounts.length
+		action.payload = {...action.payload, id: store.getState().accounts.length}
 	}
 	return next(action)
 }
