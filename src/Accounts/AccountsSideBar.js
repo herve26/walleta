@@ -35,6 +35,9 @@ const LogoContainer = styled.h1`
   margin-bottom: 36px;
   text-transform: uppercase;
 `
+const NewAccountButtonContainer = styled.div`
+  margin-top: 24px;
+`
 
 // const a = {id: uuid ?}
 
@@ -51,7 +54,9 @@ export function AccountsSideBar({accounts}) {
       <ListContainer>
         {accountsList}
       </ListContainer>
-      <NewAccount iconsList={iconsList} colorsList={colorsList}/>
+      <NewAccountButtonContainer>
+        <NewAccount iconsList={iconsList} colorsList={colorsList}/>
+      </NewAccountButtonContainer>
     </Container>
   );
 }

@@ -2,10 +2,9 @@
 import styled from 'styled-components';
 
 export const IconContainer = styled.div`
-    background-color: ${props => props.active ? 'white' : props.colour};
-    color: ${({active, colour}) => active ? colour : 'white'};
-    height: 36px;
-    width: 36px;
+    color: ${({colour}) => colour};
+    height: 24px;
+    width: 24px;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -16,10 +15,14 @@ export const IconContainer = styled.div`
 export const ButtonContainer = styled.div`
     display: flex;
     align-items: center;
-    border-radius: 12px;
-    border: 2px solid ${props => props.colour};
-    padding: 4px;
-    background-color: ${props => props.active ? props.colour : 'white'};
-    margin-bottom: 8px;
+    /*padding: 4px;*/
+    margin-bottom: 16px;
+    cursor: pointer;
+    border-right: 6px solid transparent;
+    border-right-color:${({active, colour}) => active ? colour : 'transparent'};
+    &:hover {
+        border-right-color: ${({colour}) => colour};
+    }
+    
     /* height: 3.75rem; */
 `

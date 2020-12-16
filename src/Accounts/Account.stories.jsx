@@ -16,8 +16,8 @@ Default.args = {
     title: 'Account 1',
     currency: '$',
     balance: 15000,
-    color: '#2699FB',
-    icon: <AccountBalanceWalletIcon />
+    color: 0,
+    icon: 0
 }
 
 export const Selected = Template.bind({})
