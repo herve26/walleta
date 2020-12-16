@@ -47,21 +47,17 @@ export function NewAccount({add_account, remove_account, iconsList, colorsList})
                 <IconContainer colour={'black'}><AddIcon/></IconContainer>
                 Add a New Account
             </Button>
-            <Transition in={isOpen} timeout={1000}>
-                {(state) => 
-                    <Formcontainer
-                        state={state}
-                        isOpen={isOpen}
-                    >
-                        <AddAccountForm 
-                            currencies={currencies} 
-                            iconsList={iconsList}
-                            colorsList={colorsList}
-                            onSubmitted={handleSubmit} 
-                            onClosed={handleClose}
-                        />
-                </Formcontainer>}
-            </Transition>
+                <Formcontainer
+                    isOpen={isOpen}
+                >
+                    <AddAccountForm 
+                        currencies={currencies} 
+                        iconsList={iconsList}
+                        colorsList={colorsList}
+                        onSubmitted={handleSubmit} 
+                        onClosed={handleClose}
+                    />
+            </Formcontainer>
         </Container> 
     )
 }
