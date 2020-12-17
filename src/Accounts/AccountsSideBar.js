@@ -43,13 +43,20 @@ const NewAccountButtonContainer = styled.div`
 
 console.log(accountSlice)
 
-export function AccountsSideBar({accounts, select_one}) {
-  console.log(accounts)
+export function AccountsSideBar({accounts, select_account, remove_account}) {
   const handleAccountSelection = idx => {
-    console.log(idx)
-    select_one(idx)
+    select_account(idx)
   }
-  const accountsList = accounts.map((account, idx) => <Account idx={idx} onActivated={handleAccountSelection} key={account.id} {...account}/>)
+  const handleAccountRemoval = idx => {
+    remove_account(idx)
+  }
+  const accountsList = 
+      accounts.map((account, idx) => <Account 
+                                          idx={idx} 
+                                          onActivated={handleAccountSelection} 
+                                          onRemoved={handleAccountRemoval}
+                                          key={account.id} {...account}
+                                      />)
   return (
     <Container>
       <LogoContainer>

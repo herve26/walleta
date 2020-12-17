@@ -5,9 +5,11 @@ export const accountSlice = createSlice({
 	name: 'accounts',
 	initialState: {accounts: []},
 	reducers: {
+		/* These Reducers are using the immer library for immutability. It let you write mutable-like syntax
+		while not mutating the data */
 		add_account: (state, action) => {state.accounts.push(action.payload)},
-		select_one: (state, action) => {state.accounts[action.payload].selected = !state.accounts[action.payload].selected},
-		remove_account: state => state - 1
+		select_account: (state, action) => {state.accounts[action.payload].selected = !state.accounts[action.payload].selected},
+		remove_account: (state, action) => {state.accounts.splice(action.payload, 1)}
 	} 
 })
 
