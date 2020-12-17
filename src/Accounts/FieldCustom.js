@@ -75,7 +75,7 @@ const ElmContainer = styled.span`
 
 export default function FieldCustom({name, value, elements, tabindex, onChanged}){
 	const [isOpen, setOpen] = useState(false)
-	const [currentElmIdx, setCurrentElmIdx] = useState(0)
+	const [currentElmIdx, setCurrentElmIdx] = useState(value || 0)
 	useEffect(() => {
 		onChanged(currentElmIdx)
 	}, [currentElmIdx])
