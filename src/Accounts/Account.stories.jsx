@@ -1,5 +1,7 @@
 import React from 'react';
-import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
+
+import colors from '../colors.json';
+import icons from '../icons';
 
 import Account from './Account'
 
@@ -16,8 +18,8 @@ Default.args = {
     title: 'Account 1',
     currency: '$',
     balance: 15000,
-    color: 0,
-    icon: 0,
+    color: colors[0],
+    Icon: icons[0],
     selected: false,
     idx: 0
 }

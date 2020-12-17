@@ -4,8 +4,6 @@ import styled from 'styled-components';
 import CloseIcon from '@material-ui/icons/Close';
 
 import {ButtonContainer as Container, IconContainer} from './stylesComponent';
-import colors from '../colors.json';
-import icons from '../icons'
 
 const Title = styled.h4`
     margin: 0;
@@ -27,12 +25,12 @@ const Remove = styled.div`
     font-size: 12px;
 `
 
-export default function Account({title, currency, amount, color, icon, selected, idx, onActivated, onRemoved}){
-    const Icon = icons[icon]
+export default function Account({title, currency, amount, color, Icon, selected, idx, onActivated, onRemoved}){
+    console.log(color)
     return (
-        <Container active={selected} colour={colors[color]} onClick={() => onActivated(idx)}>
+        <Container active={selected} colour={color} onClick={() => onActivated(idx)}>
             <Remove onClick={e => {e.stopPropagation(); onRemoved(idx)}}><CloseIcon fontSize='inherit'/></Remove>
-            <IconContainer active={selected} colour={colors[color]}><Icon/></IconContainer>
+            <IconContainer active={selected} colour={color}><Icon/></IconContainer>
             <Info active={selected}>
                 <Title>{title}</Title>
             </Info>

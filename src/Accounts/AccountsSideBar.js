@@ -44,6 +44,8 @@ const NewAccountButtonContainer = styled.div`
 console.log(accountSlice)
 
 export function AccountsSideBar({accounts, select_account, remove_account}) {
+  console.log(accounts)
+  console.log(colorsList)
   const handleAccountSelection = idx => {
     select_account(idx)
   }
@@ -52,10 +54,13 @@ export function AccountsSideBar({accounts, select_account, remove_account}) {
   }
   const accountsList = 
       accounts.map((account, idx) => <Account 
+                                          {...account}
                                           idx={idx} 
                                           onActivated={handleAccountSelection} 
                                           onRemoved={handleAccountRemoval}
-                                          key={account.id} {...account}
+                                          key={account.id}
+                                          Icon={iconsList[account.icon]}
+                                          color={colorsList[account.color]}
                                       />)
   return (
     <Container>
