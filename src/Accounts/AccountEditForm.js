@@ -6,17 +6,15 @@ import FieldCustom from './FieldCustom';
 import { Field, Button } from './stylesComponent';
 
 export default function AccountEditForm({initTitle, initIcon, initColor, colorsList, iconsList, onSubmitted}){
-	const iconLength = 3
-	const colorLength = 4
 	const initialValues = {
 		title: initTitle,
-		icon: 0,
-		color: 0
+		icon: initIcon,
+		color: initColor
 	}
 	const validationSchema = Yup.object().shape({
 		title: Yup.string().min(2).required(),
-		icon: Yup.number().min(0).max(iconLength),
-		color: Yup.number().min(0).max(colorLength)
+		icon: Yup.number().min(0).max(iconsList.length),
+		color: Yup.number().min(0).max(colorsList.length)
 	})
 	const colorElements = colorsList.map((color, index) => <div key={index} style={{background: `${color}`, height: '100%', width: '100%', borderRadius: 8}}></div>)
     const iconElements = iconsList.map((Icon, index) => <Icon key={index} fontSize='inherit'/>)
@@ -24,7 +22,7 @@ export default function AccountEditForm({initTitle, initIcon, initColor, colorsL
 		<Formik 
 			initialValues={initialValues}
 			validationSchema={validationSchema}
-			onSubmit={(values, actions) => {console.log(values); onSubmitted(values); actions.setSubmitting(false)} }
+			onSubmit={(values, actions) => {onSubmitted(values); actions.setSubmitting(false)} }
 		>
 		{formik => {
 			const { values, handleChange, setFieldValue, errors, touched, handleSubmit, isSubmitting } = formik

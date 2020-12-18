@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { connect } from 'react-redux';
 import styled from "styled-components";
 
@@ -6,6 +6,7 @@ import { accountSlice } from '../Redux/store';
 
 import Account from './Account';
 import NewAccount from './NewAccount';
+import AccountEditForm from './AccountEditForm';
 
 import iconsList from '../icons';
 import colorsList from '../colors';
@@ -23,6 +24,7 @@ const Container = styled.aside`
 
 const ListContainer = styled.div`
   /* border: 1px solid blue; */
+  margin-top: 12px;
 `
 
 const LogoContainer = styled.h1`
@@ -32,25 +34,39 @@ const LogoContainer = styled.h1`
   align-items: center;
   justify-content: center;
   margin: 0;
-  margin-bottom: 36px;
+  /*margin-bottom: 36px;*/
   text-transform: uppercase;
 `
 const NewAccountButtonContainer = styled.div`
   margin-top: 24px;
 `
+const AccountsContainer = styled.div`
+  /*border: 1px solid blue;*/
+  max-height: calc(100% - 102px);
+  overflow-y: auto;
+`
 
 // const a = {id: uuid ?}
 
-console.log(accountSlice)
+export function AccountsSideBar({accounts, edit_account, select_account, remove_account}) {
 
-export function AccountsSideBar({accounts, select_account, remove_account}) {
-  console.log(accounts)
-  console.log(colorsList)
+  const [isEditingAccount, setIsEditingAccount] = useState(false)
+  const [editIdx, setEditIdx] = useState(0)
+  let accountEditElements = {title: '', icon: 0, color: 0}
   const handleAccountSelection = idx => {
     select_account(idx)
   }
   const handleAccountRemoval = idx => {
     remove_account(idx)
+  }
+  const handleAccountEdition = idx => {
+    setEditIdx(idx);
+    setIsEditingAccount(true)
+  }
+  const handleAccountEditFormSubmit = values => {
+    setIsEditingAccount(false)
+    let editedAccount = {...accounts[editIdx], title: values.title, icon: values.icon, color: values.color}
+    edit_account(editedAccount)
   }
   const accountsList = 
       accounts.map((account, idx) => <Account 
@@ -58,6 +74,7 @@ export function AccountsSideBar({accounts, select_account, remove_account}) {
                                           idx={idx} 
                                           onActivated={handleAccountSelection} 
                                           onRemoved={handleAccountRemoval}
+                                          onEdited={handleAccountEdition}
                                           key={account.id}
                                           Icon={iconsList[account.icon]}
                                           color={colorsList[account.color]}
@@ -67,12 +84,23 @@ export function AccountsSideBar({accounts, select_account, remove_account}) {
       <LogoContainer>
         Walleta
       </LogoContainer>
-      <ListContainer>
-        {accountsList}
-      </ListContainer>
-      <NewAccountButtonContainer>
-        <NewAccount iconsList={iconsList} colorsList={colorsList}/>
-      </NewAccountButtonContainer>
+        <AccountsContainer>
+        {isEditingAccount && 
+          <AccountEditForm
+            initTitle={accounts[editIdx].title}
+            initIcon={accounts[editIdx].icon}
+            initColor={accounts[editIdx].color}
+            iconsList={iconsList}
+            colorsList={colorsList}
+            onSubmitted={handleAccountEditFormSubmit}
+          />}
+        <ListContainer>
+          {accountsList}
+        </ListContainer>
+        <NewAccountButtonContainer>
+          <NewAccount iconsList={iconsList} colorsList={colorsList}/>
+        </NewAccountButtonContainer>
+      </AccountsContainer>
     </Container>
   );
 }

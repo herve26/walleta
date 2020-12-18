@@ -64,7 +64,6 @@ export default function AddAccountForm({currencies, iconsList, colorsList, onClo
     const currenciesList = Object.entries(currencies).map(([sym, name]) => <option key={sym} value={sym}>{name}</option>)
     const colorElements = colorsList.map((color, index) => <div key={index} style={{background: `${color}`, height: '100%', width: '100%', borderRadius: 8}}></div>)
     const iconElements = iconsList.map((Icon, index) => <Icon key={index} fontSize='inherit'/>)
-    console.log(iconsList)
     return(
         <Formik
             initialValues={initialValues}

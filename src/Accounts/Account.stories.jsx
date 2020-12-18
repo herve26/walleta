@@ -8,7 +8,9 @@ import Account from './Account'
 export default {
     component: Account,
     title: 'Account Panel/Account Button',
-    argTypes: { onActivated: { action: 'Toggled activation'}, onRemoved: { action: 'Removed Clicked'} }
+    argTypes: { onActivated: { action: 'Toggled activation'}, 
+                onRemoved: { action: 'Removed Clicked'},
+                onEdited: { action: 'Edited Clicked'} }
 }
 
 const Template = args => <Account {...args}/>

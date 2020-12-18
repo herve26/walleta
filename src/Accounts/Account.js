@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 import CloseIcon from '@material-ui/icons/Close';
+import CreateIcon from '@material-ui/icons/Create';
 
 import {ButtonContainer as Container, IconContainer} from './stylesComponent';
 
@@ -25,10 +26,14 @@ const Remove = styled.div`
     font-size: 12px;
 `
 
-export default function Account({title, currency, amount, color, Icon, selected, idx, onActivated, onRemoved}){
-    console.log(color)
+const Edit = styled(Remove)`
+    margin-right: 4px;
+`
+
+export default function Account({title, currency, amount, color, Icon, selected, idx, onActivated, onRemoved, onEdited}){
     return (
         <Container active={selected} colour={color} onClick={() => onActivated(idx)}>
+            <Edit onClick={e => {e.stopPropagation(); onEdited(idx)}}><CreateIcon fontSize='inherit'/></Edit>
             <Remove onClick={e => {e.stopPropagation(); onRemoved(idx)}}><CloseIcon fontSize='inherit'/></Remove>
             <IconContainer active={selected} colour={color}><Icon/></IconContainer>
             <Info active={selected}>

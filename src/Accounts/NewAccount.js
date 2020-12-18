@@ -21,6 +21,7 @@ const Formcontainer = styled.div`
     ${({isOpen}) => !isOpen && css`
         height: 0;
         visibility: hidden;
+        display: none;
     `}
 `
 const Button = styled(ButtonContainer)`

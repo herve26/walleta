@@ -9,7 +9,8 @@ export const accountSlice = createSlice({
 		while not mutating the data */
 		add_account: (state, action) => {state.accounts.push(action.payload)},
 		select_account: (state, action) => {state.accounts[action.payload].selected = !state.accounts[action.payload].selected},
-		remove_account: (state, action) => {state.accounts.splice(action.payload, 1)}
+		remove_account: (state, action) => {state.accounts.splice(action.payload, 1)},
+		edit_account: (state, action) => {state.accounts[action.payload.id] = action.payload}
 	} 
 })
 
