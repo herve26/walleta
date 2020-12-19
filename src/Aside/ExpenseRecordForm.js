@@ -4,6 +4,7 @@ import * as Yup from 'yup';
 import { Formik } from 'formik';
 
 import { Field, Button } from '../Components/Field';
+import AccordionField from './AccordionField';
 
 const FieldArea = styled(Field)`
 	/*border: 1px solid red;*/
@@ -33,10 +34,11 @@ export default function ExpenseRecordForm(){
 			const { errors, touched, isSubmitting, handleChange, handleSubmit, values } = formik
 			return(
 				<form onSubmit={handleSubmit}>
-					<Field
+					<AccordionField
 						type="text"
-						onChange={handleChange}
+						onChanged={handleChange}
 						value={values.category}
+						initValue={[0,0]}
 						name="category"
 					/>
 					<Field
