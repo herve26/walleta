@@ -10,7 +10,7 @@ import store, { accountSlice } from './Redux/store';
 
 import Accounts from "./Accounts/AccountsSideBar";
 import MainView from "./Main/MainView";
-import TransactionInput from "./Aside/TransactionsInput";
+import RecordPanel from "./Aside/RecordPanel";
 
 
 const { add_account, remove_account } = accountSlice
@@ -31,7 +31,7 @@ export default function App() {
         <GlobalStyle/>
         <Accounts accounts={[]}/>
         <MainView />
-        <TransactionInput />
+        <RecordPanel />
       </Container>
     </Provider>
   );
