@@ -5,7 +5,7 @@ import {Transition} from 'react-transition-group';
 
 import AddIcon from '@material-ui/icons/Add';
 
-import { accountSlice } from '../Redux/store';
+import * as accountActions from '../Redux/reducers/accountsSlice';
 
 import AddAccountForm from './AddAccountForm';
 
@@ -33,6 +33,7 @@ const Button = styled(ButtonContainer)`
 export function NewAccount({add_account, remove_account, iconsList, colorsList}){
     const [isOpen, setOpen] = useState(false)
     const handleSubmit = values => {
+        console.log(values)
         setOpen(false)
         values.selected = false;
         add_account(values)
@@ -64,4 +65,4 @@ export function NewAccount({add_account, remove_account, iconsList, colorsList})
     )
 }
 
-export default connect(null, accountSlice.actions)(NewAccount)
+export default connect(null, accountActions)(NewAccount)

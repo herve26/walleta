@@ -6,14 +6,11 @@ import "./styles.css";
 import "./style/normalize.css";
 import { GlobalStyle } from './globalStyle';
 
-import store, { accountSlice } from './Redux/store';
+import store from './Redux/store';
 
 import Accounts from "./Accounts/AccountsSideBar";
 import MainView from "./Main/MainView";
 import RecordPanel from "./Aside/RecordPanel";
-
-
-const { add_account, remove_account } = accountSlice
 
 
 const Container = styled.div`

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { connect } from 'react-redux';
 import styled from "styled-components";
 
-import { accountSlice } from '../Redux/store';
+import * as accountActions from '../Redux/reducers/accountsSlice';
 
 import Account from './Account';
 import NewAccount from './NewAccount';
@@ -68,6 +68,7 @@ export function AccountsSideBar({accounts, edit_account, select_account, remove_
     let editedAccount = {...accounts[editIdx], title: values.title, icon: values.icon, color: values.color}
     edit_account(editedAccount)
   }
+  console.log(accounts)
   const accountsList = 
       accounts.map((account, idx) => <Account 
                                           {...account}
@@ -105,4 +106,4 @@ export function AccountsSideBar({accounts, edit_account, select_account, remove_
   );
 }
 
-export default connect(({accounts}) => ({accounts}), accountSlice.actions)(AccountsSideBar)
+export default connect(({accounts}) => ({accounts}), accountActions)(AccountsSideBar)

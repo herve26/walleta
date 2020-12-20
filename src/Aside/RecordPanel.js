@@ -4,13 +4,9 @@ import { Tabs, TabList, Tab, TabPanel } from 'react-tabs';
 
 import { PanelContainer as Container } from '../globalStyle';
 import RecordForm from './RecordForm';
-// const Container = styled.aside`
-//   border: 1px solid blue;
-//   width: 250px;
-// `;
+
 
 const TabListContainer = styled(TabList)`
-	/*border: 1px solid red;*/
 	list-style: none;
 	padding: 0;
 	display: flex;
@@ -33,7 +29,10 @@ const Content = styled.div`
 export default function RecordPanel() {
 	const [currentTab, setCurrentTab] = useState(0)
 	const handleExpenseSubmit = values => {
-		console.log(values)
+		console.log('Expense: ', values)
+	}
+	const handleIncomeSubmit = values => {
+		console.log('Expense: ', values)
 	}
   	return (
 	  	<Container>
@@ -45,7 +44,7 @@ export default function RecordPanel() {
 	  			</TabListContainer>
 	  			<Content>
 	  			<TabPanel><RecordForm onSubmitted={handleExpenseSubmit}/></TabPanel>
-	  			<TabPanel><RecordForm onSubmitted={values => console.log(values)}/></TabPanel>
+	  			<TabPanel><RecordForm onSubmitted={handleIncomeSubmit}/></TabPanel>
 	  			<TabPanel>Transfert</TabPanel>
 	  			</Content>
 	  		</Tabs>
