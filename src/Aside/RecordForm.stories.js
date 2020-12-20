@@ -11,4 +11,6 @@ export default {
 const Template = args => <RecordForm {...args} />
 
 export const Default = Template.bind({})
-Default.args = {}
+Default.args = {
+	accountList: [{id: '1', title: 'Airtel Money'}]
+}

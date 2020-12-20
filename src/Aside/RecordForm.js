@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
+import PropTypes from 'prop-types';
 
 import { Field, Button } from '../Components/Field';
 import AccordionField from './AccordionField';
@@ -11,19 +12,25 @@ const FieldArea = styled(Field)`
 	height: 64px;
 `
 
-export default function ExpenseRecordForm({onSubmitted}){
+export default function RecordForm({accountsList, onSubmitted}){
+	// const initAccountId = 
 	const initialValues = {
 		category: '0',
 		amount: 0,
 		date: '2020-12-19',
-		note: ''
+		note: '',
+		account: accountsList[0] ? accountsList[0].id : ''
 	}
 	const validationSchema = Yup.object().shape({
 		category: Yup.string(),
 		amount: Yup.number().positive(),
 		date: Yup.string(),
-		note: Yup.string()
+		note: Yup.string(),
+		account: Yup.string()
 	})
+	const accountsOption = accountsList.map((option, index) => (
+		<option value={option.id}>{option.title}</option>
+	))
 	return (
 		<Formik
 			initialValues={initialValues}
@@ -34,6 +41,15 @@ export default function ExpenseRecordForm({onSubmitted}){
 			const { errors, touched, isSubmitting, handleSubmit, handleChange, values, setFieldValue } = formik
 			return(
 				<form onSubmit={handleSubmit}>
+					<Field 
+						as="select"
+						onChange={handleChange}
+						value={values.account}
+						name="account"
+						error={(errors.account && (values.account || touched.account))}
+					>
+						{accountsOption}
+					</Field>
 					<AccordionField
 						type="text"
 						onChanged={index => setFieldValue('category', index)}
@@ -68,4 +84,9 @@ export default function ExpenseRecordForm({onSubmitted}){
 		}}
 		</Formik>
 	)
+}
+
+RecordForm.propTypes = {
+	accountsList: PropTypes.array.isRequired,
+	onSubmitted: PropTypes.func
 }
