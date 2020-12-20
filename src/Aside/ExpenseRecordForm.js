@@ -11,34 +11,34 @@ const FieldArea = styled(Field)`
 	height: 64px;
 `
 
-export default function ExpenseRecordForm(){
+export default function ExpenseRecordForm({onSubmitted}){
 	const initialValues = {
-		category: 0,
+		category: '0',
 		amount: 0,
-		date: 0,
+		date: '2020-12-19',
 		note: ''
 	}
 	const validationSchema = Yup.object().shape({
-		category: Yup.number(),
+		category: Yup.string(),
 		amount: Yup.number().positive(),
-		date: Yup.number(),
+		date: Yup.string(),
 		note: Yup.string()
 	})
 	return (
 		<Formik
 			initialValues={initialValues}
 			validationSchema={validationSchema}
-			onSubmit={values => console.log(values)}
+			onSubmit={(values, actions) => { onSubmitted(values); actions.setSubmitting(false) }}
 		>
 		{formik => {
-			const { errors, touched, isSubmitting, handleChange, handleSubmit, values } = formik
+			const { errors, touched, isSubmitting, handleSubmit, handleChange, values, setFieldValue } = formik
 			return(
 				<form onSubmit={handleSubmit}>
 					<AccordionField
 						type="text"
-						onChanged={handleChange}
-						value={values.category}
-						initValue={[0,0]}
+						onChanged={index => setFieldValue('category', index)}
+						value={values.category.toString()}
+						initValue={[0]}
 						name="category"
 					/>
 					<Field
@@ -46,18 +46,21 @@ export default function ExpenseRecordForm(){
 						onChange={handleChange}
 						value={values.amount}
 						name="amount"
+						error={(errors.amount && (values.amount || touched.amount))}
 					/>
 					<Field
-						type="text"
+						type="date"
 						onChange={handleChange}
 						value={values.date}
 						name="date"
+						error={(errors.date && (values.date || touched.date))}
 					/>
 					<FieldArea
 						as="textarea" 
 						value={values.note}
 						onChange={handleChange}
 						name="note"
+						error={(errors.note && (values.note || touched.note))}
 					/>
 					<Button type="submit">Save</Button>
 				</form>

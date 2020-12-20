@@ -61,7 +61,7 @@ const Container = styled.div`
 	margin-bottom: 8px;
 `
 
-const AccordionContainer = styled(Accordion)`
+const AccordionContainer = styled.div`
 	display: ${({isOpen}) => isOpen ? '': 'none'}
 	/*border: 1px solid red;*/
 `
@@ -134,7 +134,7 @@ export default function AccordionField({value, name, initValue, onChanged}){
 		onChanged(currentItem.join(','))
 	}, [currentItem])
 	const accordionsArr = (
-	<AccordionContainer isOpen={isOpen} preExpanded={[currentItem[0]]}>
+	<Accordion preExpanded={[currentItem[0]]}>
 		{accordionItems.map((item,id) => {
 		const Icon = item.icon
 		let isThis = false;
@@ -173,7 +173,7 @@ export default function AccordionField({value, name, initValue, onChanged}){
 			</AccordionItemPanel>
 		</AccordionItemContainer>
 	)})
-			}</AccordionContainer>)
+			}</Accordion>)
 	return (
 		<Container>
 			<input value={value} name={name} type='hidden'/>
@@ -183,7 +183,9 @@ export default function AccordionField({value, name, initValue, onChanged}){
 				</IconContainer>
 				{Current.title}
 			</AccordionInput>
-			{accordionsArr}
+			<AccordionContainer isOpen={isOpen}>
+				{accordionsArr}
+			</AccordionContainer>
 		</Container>
 	)
 }
