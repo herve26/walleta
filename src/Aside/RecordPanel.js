@@ -29,7 +29,7 @@ const Content = styled.div`
 	padding: 24px;
 `
 
-function RecordPanel({add_record}) {
+function RecordPanel({accounts, add_record}) {
 	const [currentTab, setCurrentTab] = useState(0)
 	const handleExpenseSubmit = values => {
 		console.log('Expense: ', values)
@@ -38,6 +38,7 @@ function RecordPanel({add_record}) {
 	const handleIncomeSubmit = values => {
 		console.log('Expense: ', values)
 	}
+	const accountsList = Object.values(accounts).map(value => ({id: value.id, title: value.title}))
   	return (
 	  	<Container>
 	  		<Tabs defaultIndex={currentTab} onSelect={setCurrentTab}>
@@ -47,8 +48,8 @@ function RecordPanel({add_record}) {
 	  				<TabContainer isSelected={currentTab === 2}>Transfert</TabContainer>
 	  			</TabListContainer>
 	  			<Content>
-	  			<TabPanel><RecordForm onSubmitted={handleExpenseSubmit}/></TabPanel>
-	  			<TabPanel><RecordForm onSubmitted={handleIncomeSubmit}/></TabPanel>
+	  			<TabPanel><RecordForm accountsList={accountsList} onSubmitted={handleExpenseSubmit}/></TabPanel>
+	  			<TabPanel><RecordForm accountsList={accountsList} onSubmitted={handleIncomeSubmit}/></TabPanel>
 	  			<TabPanel>Transfert</TabPanel>
 	  			</Content>
 	  		</Tabs>
@@ -57,4 +58,4 @@ function RecordPanel({add_record}) {
 	);
 }
 
-export default connect(null, recordActions)(RecordPanel)
+export default connect(({accounts}) => ({accounts}), recordActions)(RecordPanel)
