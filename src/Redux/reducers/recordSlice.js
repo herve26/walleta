@@ -1,11 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { v4 as uuid } from 'uuid';
 
 const recordSlice = createSlice({
 	name: 'records',
 	initialState: [],
 	reducers: {
-		add_record(state, action){
-			state.records.push(action.payload)
+		add_record:{
+			reducer(state, action){
+				state.push(action.payload)
+			},
+			prepare(newRecord){
+				return { payload: {id: uuid(), ...newRecord}}
+			}
 		}
 	}
 })

@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import { connect } from 'react-redux';
 import styled from "styled-components";
 import { Tabs, TabList, Tab, TabPanel } from 'react-tabs';
+
+import * as recordActions from '../Redux/reducers/recordSlice';
 
 import { PanelContainer as Container } from '../globalStyle';
 import RecordForm from './RecordForm';
@@ -26,10 +29,11 @@ const Content = styled.div`
 	padding: 24px;
 `
 
-export default function RecordPanel() {
+function RecordPanel({add_record}) {
 	const [currentTab, setCurrentTab] = useState(0)
 	const handleExpenseSubmit = values => {
 		console.log('Expense: ', values)
+		add_record({multiplier: -1, ...values})
 	}
 	const handleIncomeSubmit = values => {
 		console.log('Expense: ', values)
@@ -52,3 +56,5 @@ export default function RecordPanel() {
 	  	</Container>
 	);
 }
+
+export default connect(null, recordActions)(RecordPanel)
