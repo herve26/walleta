@@ -1,32 +1,29 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { v4 as uuid } from 'uuid';
+import { nanoid } from 'nanoid';
+// import 
 
 import { add_record } from './recordSlice';
 
 const accountSlice = createSlice({
 	name: 'accounts',
-	initialState: [],
+	initialState: {},
 	reducers: {
 		/* These Reducers are using the immer library for immutability. It let you write mutable-like syntax
 		while not mutating the data */
 		add_account: {
 			reducer(state, action){
-				console.log(state)
-				console.log(action)
-				state.push(action.payload)
+				state[action.payload.id] = action.payload
 			},
 			prepare(newAccount){
-				return { payload: {id: uuid(), records: [], ...newAccount} }
+				return { payload: {id: `acc${nanoid()}`, created_at: Date.now(), modified_at: Date.now(), records: [], ...newAccount} }
 			}
 		},
-		select_account: (state, action) => {state.[action.payload].selected = !state.[action.payload].selected},
-		remove_account: (state, action) => {state.splice(action.payload, 1)},
-		edit_account: (state, action) => {state.[action.payload.id] = action.payload}
+		select_account: (state, action) => {state[action.payload].selected = !state[action.payload].selected},
+		remove_account: (state, action) => {delete state[action.payload]},
+		edit_account: (state, action) => {state[action.payload.id] = action.payload}
 	},
 	extraReducers: {
-		[add_record]: (state, action) => {
-			state[0].records.push(action.payload.id)
-		}
+		[add_record]: (state, action) => {}
 	}
 })
 

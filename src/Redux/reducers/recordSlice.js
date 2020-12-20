@@ -1,16 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { v4 as uuid } from 'uuid';
+import { nanoid } from 'nanoid';
 
 const recordSlice = createSlice({
 	name: 'records',
-	initialState: [],
+	initialState: {},
 	reducers: {
 		add_record:{
 			reducer(state, action){
-				state.push(action.payload)
+				state[action.payload.id] = action.payload
 			},
 			prepare(newRecord){
-				return { payload: {id: uuid(), ...newRecord}}
+				return { payload: {id: `rec${nanoid()}`, created_at: Date.now(), modified_at: Date.now(), ...newRecord}}
 			}
 		}
 	}

@@ -70,13 +70,12 @@ export function AccountsSideBar({accounts, edit_account, select_account, remove_
   }
   console.log(accounts)
   const accountsList = 
-      accounts.map((account, idx) => <Account 
+      Object.values(accounts).map((account, idx) => <Account 
                                           {...account}
-                                          idx={idx} 
                                           onActivated={handleAccountSelection} 
                                           onRemoved={handleAccountRemoval}
                                           onEdited={handleAccountEdition}
-                                          key={account.id}
+                                          key={idx}
                                           Icon={iconsList[account.icon]}
                                           color={colorsList[account.color]}
                                       />)

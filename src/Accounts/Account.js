@@ -30,11 +30,11 @@ const Edit = styled(Remove)`
     margin-right: 4px;
 `
 
-export default function Account({title, currency, amount, color, Icon, selected, idx, onActivated, onRemoved, onEdited}){
+export default function Account({title, currency, amount, color, Icon, selected, id, onActivated, onRemoved, onEdited}){
     return (
-        <Container active={selected} colour={color} onClick={() => onActivated(idx)}>
-            <Edit onClick={e => {e.stopPropagation(); onEdited(idx)}}><CreateIcon fontSize='inherit'/></Edit>
-            <Remove onClick={e => {e.stopPropagation(); onRemoved(idx)}}><CloseIcon fontSize='inherit'/></Remove>
+        <Container active={selected} colour={color} onClick={() => onActivated(id)}>
+            <Edit onClick={e => {e.stopPropagation(); onEdited(id)}}><CreateIcon fontSize='inherit'/></Edit>
+            <Remove onClick={e => {e.stopPropagation(); onRemoved(id)}}><CloseIcon fontSize='inherit'/></Remove>
             <IconContainer active={selected} colour={color}><Icon/></IconContainer>
             <Info active={selected}>
                 <Title>{title}</Title>
