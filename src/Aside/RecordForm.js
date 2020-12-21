@@ -14,6 +14,7 @@ const FieldArea = styled(Field)`
 
 export default function RecordForm({accountsList, onSubmitted}){
 	// const initAccountId = 
+	console.log(accountsList[0] ? accountsList[0].id : '')
 	const initialValues = {
 		category: '0',
 		amount: 0,
@@ -26,11 +27,14 @@ export default function RecordForm({accountsList, onSubmitted}){
 		amount: Yup.number().positive(),
 		date: Yup.string(),
 		note: Yup.string(),
-		account: Yup.string()
+		account: Yup.string().required()
 	})
-	const accountsOption = accountsList.map((option, index) => (
-		<option value={option.id}>{option.title}</option>
-	))
+	const accountsOption = accountsList.map((option, index) => {
+		console.log(option)
+		return (<option key={index} value={option.id}>{option.title}</option>)
+	})
+
+	console.log(initialValues)
 	return (
 		<Formik
 			initialValues={initialValues}
@@ -39,15 +43,18 @@ export default function RecordForm({accountsList, onSubmitted}){
 		>
 		{formik => {
 			const { errors, touched, isSubmitting, handleSubmit, handleChange, values, setFieldValue } = formik
+			console.log(errors)
+			console.log(values)
 			return(
 				<form onSubmit={handleSubmit}>
-					<Field 
+					<Field
 						as="select"
+						name="account"
 						onChange={handleChange}
 						value={values.account}
-						name="account"
 						error={(errors.account && (values.account || touched.account))}
 					>
+						<option value="">Select an Account</option>
 						{accountsOption}
 					</Field>
 					<AccordionField

@@ -38,7 +38,7 @@ function RecordPanel({accounts, add_record}) {
 	const handleIncomeSubmit = values => {
 		console.log('Expense: ', values)
 	}
-	const accountsList = Object.values(accounts).map(value => ({id: value.id, title: value.title}))
+	const accountsList = Object.values(accounts).map((value,id) => ({id: value.id, title: value.title}))
   	return (
 	  	<Container>
 	  		<Tabs defaultIndex={currentTab} onSelect={setCurrentTab}>

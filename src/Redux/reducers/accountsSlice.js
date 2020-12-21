@@ -23,7 +23,11 @@ const accountSlice = createSlice({
 		edit_account: (state, action) => {state[action.payload.id] = action.payload}
 	},
 	extraReducers: {
-		[add_record]: (state, action) => {}
+		[add_record]: (state, action) => {
+			console.log(state)
+			console.log(action)
+			state[action.payload.account].records.push(action.payload.id) 
+		}
 	}
 })
 
