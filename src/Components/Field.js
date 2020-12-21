@@ -14,6 +14,10 @@ export const Field = styled.input`
     height: 36px;
 `
 
+export const FieldArea = styled(Field)`
+    height: 64px;
+`
+
 export const Button = styled.button`
     border: none;
     background-color: ${props => props.disabled ? 'grey' : '#2699FB'};
