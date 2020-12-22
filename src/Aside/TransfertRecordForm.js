@@ -22,8 +22,8 @@ export default function TransfertRecordForm({accountsList, onSubmitted}){
 		return value !== context.from[0].value[path]
 	}
 	const initialValues = {
-		sender: 0,
-		receiver: 1,
+		sender: accountsList[0].id,
+		receiver: accountsList[1].id,
 		amount: 0,
 		rate: 0,
 		date: '',
