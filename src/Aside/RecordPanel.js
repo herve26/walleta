@@ -22,7 +22,7 @@ const TabContainer = styled(Tab)`
 	text-align: center;
 	padding: 8px 4px;
 	border-bottom: 4px solid transparent;
-	border-bottom-color: ${({isSelected}) => isSelected ? '#2699FB' : 'transparent'};
+	border-bottom-color: ${({isselected}) => isselected ? '#2699FB' : 'transparent'};
 	cursor: pointer;
 `
 
@@ -32,37 +32,45 @@ const Content = styled.div`
 
 function RecordPanel({accounts, add_record}) {
 	const [currentTab, setCurrentTab] = useState(0)
+	const accountsArr = Object.values(accounts)
 	const handleRecordSubmit = (values, type) => {
 		add_record({type: type, ...values})
 	}
-	const accountsList = Object.values(accounts).map((value,id) => ({id: value.id, title: value.title}))
-	const tabHeading = ['Expense', 'Income', 'Transfert'].map((value, index) => <TabContainer isSelected={currentTab === index}>{value}</TabContainer>)
-  	return (
+	const tabArr = [{title: 'Expense', component: RecordForm},
+  						{title: 'Income', component: RecordForm},
+  						{title: 'Transfert', component: TransfertRecordForm}]
+	const createTabs = () => {
+  		let heading = []
+  		let tabs = []
+  		const loopLength = accountsArr.length > 1 ? 3 : 2;
+  		for (var i = 0; i < loopLength; i++) {
+  			const Component = tabArr[i].component
+  			const title = tabArr[i].title
+  			heading.push(<TabContainer key={i} isselected={currentTab === i}>{title}</TabContainer>)
+  			tabs.push(
+  					<TabPanel key={i}>
+  						<Component  
+  							accountsList={accountsArr} 
+  							onSubmitted={values => handleRecordSubmit(values, title.toLowerCase())}
+  						/>
+  					</TabPanel>
+  					)
+  		}
+  		return [heading, tabs]
+  	}
+  	const [tabHeading, tabContent] = createTabs()
+  	return (accountsArr.length ?
 	  	<Container>
 	  		<Tabs defaultIndex={currentTab} onSelect={setCurrentTab}>
 	  			<TabListContainer>
 	  				{tabHeading}
 	  			</TabListContainer>
 	  			<Content>
-		  			<TabPanel>
-		  					<RecordForm 
-		  						accountsList={accountsList} 
-		  						onSubmitted={values => {handleRecordSubmit(values, 'expense')}}/>
-	  				</TabPanel>
-		  			<TabPanel>
-		  				<RecordForm 
-		  					accountsList={accountsList} 
-		  					onSubmitted={values => {handleRecordSubmit(values, 'income')}}/>
-		  			</TabPanel>
-		  			<TabPanel>
-		  				<TransfertRecordForm 
-		  					accountsList={accountsList} 
-		  					onSubmitted={values => {handleRecordSubmit(values, 'transfert')}}/>
-		  			</TabPanel>
+		  			{tabContent}
 	  			</Content>
 	  		</Tabs>
 	  		
-	  	</Container>
+	  	</Container> : <></>
 	);
 }
 
