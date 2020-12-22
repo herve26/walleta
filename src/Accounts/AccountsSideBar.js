@@ -10,18 +10,12 @@ import AccountEditForm from './AccountEditForm';
 
 import iconsList from '../icons';
 import colorsList from '../colors';
+import { PanelContainer } from '../Components/Panel';
 
-const Container = styled.aside`
-  /* border: 1px solid blue; */
-  width: 250px;
-  /* margin: 20px; */
+
+const Container = styled(PanelContainer)`
   padding: 24px;
-  border-radius: 24px;
-  box-shadow: 0px 3px 6px #00000029;
-  height: 100%;
-  background: white;
-`;
-
+`
 const ListContainer = styled.div`
   /* border: 1px solid blue; */
   margin-top: 12px;

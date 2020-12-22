@@ -15,7 +15,7 @@ import RecordPanel from "./Aside/RecordPanel";
 
 const Container = styled.div`
   display: flex;
-  border: 1px solid red;
+  /*border: 1px solid red;*/
   height: 100vh;
   padding: 20px;
   background: #F3F8FB;

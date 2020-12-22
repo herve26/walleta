@@ -5,7 +5,7 @@ import { Tabs, TabList, Tab, TabPanel } from 'react-tabs';
 
 import * as recordActions from '../Redux/reducers/recordSlice';
 
-import { PanelContainer as Container } from '../globalStyle';
+import { PanelContainer as Container } from '../Components/Panel';
 import RecordForm from './RecordForm';
 import TransfertRecordForm from './TransfertRecordForm';
 
