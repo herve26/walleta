@@ -8,13 +8,10 @@ import { Field, Button } from '../Components/Field';
 import AccordionField from './AccordionField';
 
 const FieldArea = styled(Field)`
-	/*border: 1px solid red;*/
 	height: 64px;
 `
 
 export default function RecordForm({accountsList, onSubmitted}){
-	// const initAccountId = 
-	console.log(accountsList[0] ? accountsList[0].id : '')
 	const initialValues = {
 		category: '0',
 		amount: 0,
@@ -30,11 +27,9 @@ export default function RecordForm({accountsList, onSubmitted}){
 		account: Yup.string().required()
 	})
 	const accountsOption = accountsList.map((option, index) => {
-		console.log(option)
 		return (<option key={index} value={option.id}>{option.title}</option>)
 	})
 
-	console.log(initialValues)
 	return (
 		<Formik
 			initialValues={initialValues}
@@ -43,8 +38,6 @@ export default function RecordForm({accountsList, onSubmitted}){
 		>
 		{formik => {
 			const { errors, touched, isSubmitting, handleSubmit, handleChange, values, setFieldValue } = formik
-			console.log(errors)
-			console.log(values)
 			return(
 				<form onSubmit={handleSubmit}>
 					<Field

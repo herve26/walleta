@@ -33,7 +33,6 @@ const Button = styled(ButtonContainer)`
 export function NewAccount({add_account, remove_account, iconsList, colorsList}){
     const [isOpen, setOpen] = useState(false)
     const handleSubmit = values => {
-        console.log(values)
         setOpen(false)
         values.selected = false;
         add_account(values)

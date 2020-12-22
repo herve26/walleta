@@ -62,7 +62,6 @@ export function AccountsSideBar({accounts, edit_account, select_account, remove_
     let editedAccount = {...accounts[editIdx], title: values.title, icon: values.icon, color: values.color}
     edit_account(editedAccount)
   }
-  console.log(accounts)
   const accountsList = 
       Object.values(accounts).map((account, idx) => <Account 
                                           {...account}

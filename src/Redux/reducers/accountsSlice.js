@@ -24,8 +24,6 @@ const accountSlice = createSlice({
 	},
 	extraReducers: {
 		[add_record]: (state, action) => {
-			console.log(state)
-			console.log(action)
 			if(action.payload.type === 'transfert'){
 				state[action.payload.sender].records.push(action.payload.id)
 				state[action.payload.receiver].records.push(action.payload.id)	
