@@ -31,7 +31,7 @@ function getAmountByType(record, account){
 		case 'income':
 			return record.amount
 		case 'transfert':
-			return record.sender === record.id ? record.amount * 1 : record.amount
+			return record.sender === record.id ? record.amount * -1 : record.amount
 	}
 }
 
