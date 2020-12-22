@@ -7,6 +7,7 @@ import * as recordActions from '../Redux/reducers/recordSlice';
 
 import { PanelContainer as Container } from '../globalStyle';
 import RecordForm from './RecordForm';
+import TransfertRecordForm from './TransfertRecordForm';
 
 
 const TabListContainer = styled(TabList)`
@@ -31,26 +32,33 @@ const Content = styled.div`
 
 function RecordPanel({accounts, add_record}) {
 	const [currentTab, setCurrentTab] = useState(0)
-	const handleExpenseSubmit = values => {
-		console.log('Expense: ', values)
-		add_record({multiplier: -1, ...values})
-	}
-	const handleIncomeSubmit = values => {
-		console.log('Expense: ', values)
+	const handleRecordSubmit = (values, type) => {
+		add_record({type: type, ...values})
 	}
 	const accountsList = Object.values(accounts).map((value,id) => ({id: value.id, title: value.title}))
+	const tabHeading = ['Expense', 'Income', 'Transfert'].map((value, index) => <TabContainer isSelected={currentTab === index}>{value}</TabContainer>)
   	return (
 	  	<Container>
 	  		<Tabs defaultIndex={currentTab} onSelect={setCurrentTab}>
 	  			<TabListContainer>
-	  				<TabContainer isSelected={currentTab === 0}>Expense</TabContainer>
-	  				<TabContainer isSelected={currentTab === 1}>Income</TabContainer>
-	  				<TabContainer isSelected={currentTab === 2}>Transfert</TabContainer>
+	  				{tabHeading}
 	  			</TabListContainer>
 	  			<Content>
-	  			<TabPanel><RecordForm accountsList={accountsList} onSubmitted={handleExpenseSubmit}/></TabPanel>
-	  			<TabPanel><RecordForm accountsList={accountsList} onSubmitted={handleIncomeSubmit}/></TabPanel>
-	  			<TabPanel>Transfert</TabPanel>
+		  			<TabPanel>
+		  					<RecordForm 
+		  						accountsList={accountsList} 
+		  						onSubmitted={values => {handleRecordSubmit(values, 'expense')}}/>
+	  				</TabPanel>
+		  			<TabPanel>
+		  				<RecordForm 
+		  					accountsList={accountsList} 
+		  					onSubmitted={values => {handleRecordSubmit(values, 'income')}}/>
+		  			</TabPanel>
+		  			<TabPanel>
+		  				<TransfertRecordForm 
+		  					accountsList={accountsList} 
+		  					onSubmitted={values => {handleRecordSubmit(values, 'transfert')}}/>
+		  			</TabPanel>
 	  			</Content>
 	  		</Tabs>
 	  		

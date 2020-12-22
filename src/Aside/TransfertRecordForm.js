@@ -17,7 +17,7 @@ const AccountsInputIcon = styled.div`
 	/*border: 1px solid blue;*/
 `
 
-export default function TransfertRecordForm({accountList, onSubmitted}){
+export default function TransfertRecordForm({accountsList, onSubmitted}){
 	const senderReceiverTest = (value, context, path) => {
 		return value !== context.from[0].value[path]
 	}
@@ -45,7 +45,7 @@ export default function TransfertRecordForm({accountList, onSubmitted}){
 		date: Yup.string(),
 		note: Yup.string()
 	})
-	const accountArr = accountList.map((value, index) => <option key={index} value={index}>{value.title}</option>)
+	const accountArr = accountsList.map((value, index) => <option key={index} value={value.id}>{value.title}</option>)
 	return (
 		<Formik
 			initialValues={initialValues}
