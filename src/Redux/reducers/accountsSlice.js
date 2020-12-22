@@ -26,7 +26,13 @@ const accountSlice = createSlice({
 		[add_record]: (state, action) => {
 			console.log(state)
 			console.log(action)
-			state[action.payload.account].records.push(action.payload.id) 
+			if(action.payload.type === 'transfert'){
+				state[action.payload.sender].records.push(action.payload.id)
+				state[action.payload.receiver].records.push(action.payload.id)	
+			}
+			else{
+				state[action.payload.account].records.push(action.payload.id)
+			} 
 		}
 	}
 })
