@@ -10,6 +10,10 @@ const Container = styled.div`
 	border-radius: 24px;
 	display: flex;
 	align-items: center;
+	margin-bottom: 8px;
+	&:last-child{
+		margin-bottom: none
+	}
 `
 const IconContainer = styled.span`
 	margin-right: 8px;
