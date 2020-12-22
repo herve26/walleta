@@ -1,12 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types'
 
 import AddIcon from '@material-ui/icons/Add'
 
 const Container = styled.div`
 	border: 1px solid ${({color}) => (color)};
-	padding: 8px;
-	border-radius: 16px;
+	padding: 4px;
+	border-radius: 24px;
 	display: flex;
 	align-items: center;
 `
@@ -46,18 +47,28 @@ const AmountContainer = styled.h4`
 const DateContainer = styled.span`
 	/*border: 1px solid yellow;*/
 `
-export default function Record(){
+export default function Record({category, note, amount, date, color, Icon, isAdd, symbol}){
+	const amountMeta = {color: isAdd ? 'green': 'red', sign: isAdd ? '+' : '-'}
 	return (
-		<Container color="gray">
-			<IconContainer color="gray"><AddIcon/></IconContainer>
+		<Container color={color}>
+			<IconContainer color={color}><Icon/></IconContainer>
 			<ContentContainer>
-				<CategoryContainer>Housing</CategoryContainer>
-				<NoteContainer>This cost me too much</NoteContainer>
+				<CategoryContainer>{category}</CategoryContainer>
+				<NoteContainer>{note}</NoteContainer>
 			</ContentContainer>
 			<MetaContainer>
-				<AmountContainer color="green">+$1000</AmountContainer>
-				<DateContainer>12/10/12</DateContainer>
+				<AmountContainer color={amountMeta.color}>{amountMeta.sign}{symbol}{amount}</AmountContainer>
+				<DateContainer>{date}</DateContainer>
 			</MetaContainer>
 		</Container>
 	)
+}
+
+Record.propTypes = {
+	category: PropTypes.string,
+	note: PropTypes.string,
+	amount: PropTypes.number,
+	date: PropTypes.string,
+	color: PropTypes.string,
+	isAdd: PropTypes.bool
 }
