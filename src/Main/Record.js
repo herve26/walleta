@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types'
 
-import AddIcon from '@material-ui/icons/Add'
 
 const Container = styled.div`
 	/*border: 1px solid ${({color}) => (color)};*/
