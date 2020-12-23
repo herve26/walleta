@@ -3,7 +3,7 @@ import React from 'react';
 import RecordList from './RecordList';
 
 export default {
-	title: 'Main View/Records',
+	title: 'Main Panel/Records',
 	component: RecordList
 }
 

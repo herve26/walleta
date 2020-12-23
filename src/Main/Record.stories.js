@@ -4,7 +4,7 @@ import Record from './Record';
 import categories from '../categories';
 
 export default {
-	title: 'Main View/Records/Record',
+	title: 'Main Panel/Records/Record',
 	component: Record
 }
 
