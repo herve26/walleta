@@ -34,24 +34,24 @@ const AccordionElementContainer = styled.div`
 	border: 1px solid #F3F8FB;
 	display: flex;
 	align-items: center;
-	box-shadow: ${({isActive}) => isActive ? 'inset 0px 3px 6px #00000029' : ''};
+	/*box-shadow: ${({isActive}) => isActive ? 'inset 0px 3px 6px #00000029' : ''};*/
 	cursor: pointer;
 `
 const IconContainer = styled.span`
 	margin-right: 8px;
     border-radius: 50%;
-    height: 36px;
-    width: 36px;
+    height: 24px;
+    width: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
+    font-size: 16px;
     background-color: ${({color}) => color};
     color: white;
 `
 
 const AccordionContentItemContainer = styled(AccordionElementContainer)`
-	margin-left: 44px;
+	margin-left: 36px;
 	padding: 4px 8px;
 `
 
@@ -59,6 +59,7 @@ const AccordionInput = styled(Field)`
 	display: flex;
 	align-items: center;
 	margin-bottom: 0;
+	padding: 4px 6px;
 `
 
 export default function AccordionField({value, name, initValue, onChanged}){
