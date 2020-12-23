@@ -5,11 +5,15 @@ import PropTypes from 'prop-types';
 import { PanelContainer } from '../Components/Panel';
 import Record from './Record';
 import categories from '../categories';
+import accountColors from '../colors.json';
 
 const Container = styled(PanelContainer)`
 	width: auto;
 	padding: 24px;
 	height: 100%;
+	/*border: 1px solid blue;*/
+	display: flex;
+	flex-direction: column;
 `
 const Header = styled.h3`
 	/*border: 1px solid red;*/
@@ -19,6 +23,8 @@ const Header = styled.h3`
 `
 const Content = styled.div`
 	/*border: 1px solid red;*/
+	overflow-y:auto;
+
 `
 function getCategory(category){
 	const catArr = category.split(',')
@@ -55,6 +61,7 @@ export default function RecordList({records}){
 				note={record.note}
 				amount={record.amount}
 				date={record.date}
+				accountColor={accountColors[record.accountColor]}
 			/>
 		)
 	})

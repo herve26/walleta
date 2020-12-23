@@ -5,12 +5,12 @@ import PropTypes from 'prop-types'
 import AddIcon from '@material-ui/icons/Add'
 
 const Container = styled.div`
-	border: 1px solid ${({color}) => (color)};
-	padding: 4px;
+	/*border: 1px solid ${({color}) => (color)};*/
+	padding: 8px;
 	border-radius: 24px;
 	display: flex;
 	align-items: center;
-	margin-bottom: 8px;
+	margin-bottom: 24px;
 	&:last-child{
 		margin-bottom: none
 	}
@@ -51,10 +51,10 @@ const AmountContainer = styled.h4`
 const DateContainer = styled.span`
 	/*border: 1px solid yellow;*/
 `
-export default function Record({category, note, amount, date, color, Icon, isAdd, symbol}){
+export default function Record({category, note, amount, date, color, accountColor, Icon, isAdd, symbol}){
 	const amountMeta = {color: isAdd ? 'green': 'red', sign: isAdd ? '+' : '-'}
 	return (
-		<Container color={color}>
+		<Container color={amountMeta.color}>
 			<IconContainer color={color}><Icon/></IconContainer>
 			<ContentContainer>
 				<CategoryContainer>{category}</CategoryContainer>

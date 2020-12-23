@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { connect } from 'react-redux';
 
 import { PanelContainer } from '../Components/Panel';
+import RecordList from './RecordList';
 
 function getSelectedAccounts(accounts){
 	return accounts.filter((value, index) => value.selected)
@@ -11,7 +12,9 @@ function getSelectedAccounts(accounts){
 function getAccountRecord(account, records){
 	let accountRecords = []
 	for (var i = account.records.length - 1; i >= 0; i--) {
-	 	accountRecords.push(records[account.records[i]])
+		const rec = {...records[account.records[i]], accountColor: account.color}
+		// rec.accountColor = account.color
+	 	accountRecords.push(rec)
 	 } 
 	 return accountRecords;
 }
@@ -47,7 +50,7 @@ const Container = styled.div`
 const BalanceContainer = styled(PanelContainer)`
 	/*border: 1px solid red;*/
 	width: auto;
-	height: auto;
+	height: 4.5rem;
 	margin: 0;
 	padding: 24px;
 `
@@ -56,9 +59,17 @@ const CurrencyContainer = styled.span`
 	padding-right: 4px;
 `
 
-const RecordsContainer = styled(PanelContainer)`
+const RecordsContainer = styled.div`
 	margin-top: 20px;
 	width: auto;
+	height: calc(100% - 4.5rem - 20px);
+	/*border: 1px solid red;*/
+`
+const RecordListContainer = styled.div`
+	width: calc(50% - 8px);
+	margin-right: 8px;
+	height: 100%;
+	/*border: 1px solid red;*/
 `
 
 function MainView({accounts, records}) {
@@ -66,11 +77,14 @@ function MainView({accounts, records}) {
 	const accountsArr = getSelectedAccounts(Object.values(accounts))
 	console.log(records)
 	let balance = 0;
+	let recordsArr = []
 	accountsArr.forEach((account, index) => {
 		const accountRecords = getAccountRecord(account, records)
+		recordsArr = [...recordsArr, ...accountRecords]
 		balance += getAccountBalance(account, accountRecords)
 	})
-	console.log(balance)
+	console.log(recordsArr)
+	// recordsArr = recordss
   	return (
 	  	<Container as="main">
 	  		<BalanceContainer as='h2'>
@@ -78,7 +92,7 @@ function MainView({accounts, records}) {
 	  			{balance}
 	  		</BalanceContainer>
 	  		<RecordsContainer>
-	  			
+	  			<RecordListContainer><RecordList records={recordsArr}/></RecordListContainer>
 	  		</RecordsContainer>
 	  	</Container>
   	)
