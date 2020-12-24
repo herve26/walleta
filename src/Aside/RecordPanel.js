@@ -50,7 +50,7 @@ function RecordPanel({accounts, add_record}) {
   			tabs.push(
   					<TabPanel key={i}>
   						<Component  
-  							accountsList={accountsArr} 
+  							accounts={accounts} 
   							onSubmitted={values => handleRecordSubmit(values, title.toLowerCase())}
   						/>
   					</TabPanel>

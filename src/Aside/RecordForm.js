@@ -3,15 +3,24 @@ import styled from 'styled-components';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import PropTypes from 'prop-types';
+import CurrencyInput from 'react-currency-input-field';
 
 import { Field, Button } from '../Components/Field';
 import AccordionField from './AccordionField';
 
+import currenciesSymbol from '../currenciesSymbol.json';
+
 const FieldArea = styled(Field)`
 	height: 64px;
 `
+const CurrencyInputContainer = styled(CurrencyInput)`
+	/*border: 1px solid red;*/
+`
 
-export default function RecordForm({accountsList, onSubmitted}){
+
+export default function RecordForm({accounts, onSubmitted}){
+	console.log(currenciesSymbol)
+	const accountsList = Object.values(accounts)
 	const initialValues = {
 		category: '0',
 		amount: 0,
@@ -38,6 +47,7 @@ export default function RecordForm({accountsList, onSubmitted}){
 		>
 		{formik => {
 			const { errors, touched, isSubmitting, handleSubmit, handleChange, values, setFieldValue } = formik
+			const prefix = currenciesSymbol[accounts[values.account].currency].symbol || ''
 			return(
 				<form onSubmit={handleSubmit}>
 					<Field
@@ -47,7 +57,6 @@ export default function RecordForm({accountsList, onSubmitted}){
 						value={values.account}
 						error={(errors.account && (values.account || touched.account))}
 					>
-						<option value="">Select an Account</option>
 						{accountsOption}
 					</Field>
 					<AccordionField
@@ -58,10 +67,11 @@ export default function RecordForm({accountsList, onSubmitted}){
 						name="category"
 					/>
 					<Field
-						type="text"
-						onChange={handleChange}
-						value={values.amount}
+						as={CurrencyInput}
 						name="amount"
+						prefix={prefix}
+						onChange={v => setFieldValue('amount', v)}
+						defaultValue={values.amount}
 						error={(errors.amount && (values.amount || touched.amount))}
 					/>
 					<Field
@@ -87,6 +97,6 @@ export default function RecordForm({accountsList, onSubmitted}){
 }
 
 RecordForm.propTypes = {
-	accountsList: PropTypes.array.isRequired,
+	accountsList: PropTypes.object.isRequired,
 	onSubmitted: PropTypes.func
 }

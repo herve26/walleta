@@ -5,6 +5,10 @@ import * as Yup from 'yup';
 
 import { Field, FieldArea, Button } from '../Components/Field';
 
+import CurrencyInput from 'react-currency-input-field';
+
+import currenciesSymbol from '../currenciesSymbol.json';
+
 const AccountsInputContainer = styled.div`
 	/*border: 1px solid red;*/
 	display: flex;
@@ -17,7 +21,8 @@ const AccountsInputIcon = styled.div`
 	/*border: 1px solid blue;*/
 `
 
-export default function TransfertRecordForm({accountsList, onSubmitted}){
+export default function TransfertRecordForm({accounts, onSubmitted}){
+	const accountsList = Object.values(accounts)
 	const senderReceiverTest = (value, context, path) => {
 		return value !== context.from[0].value[path]
 	}
@@ -53,9 +58,8 @@ export default function TransfertRecordForm({accountsList, onSubmitted}){
 			onSubmit={values => onSubmitted(values)}
 		>
 		{formik => {
-			const { values, handleChange, handleSubmit, isSubmitting, errors, touched} = formik
-			// console.log(values.amount.toLocaleString('en-US', {style: 'currency', currency: 'USD'}))
-			// const amountValue = values.amount.toLocaleString('en-US', {style: 'currency', currency: 'USD'})
+			const { values, handleChange, handleSubmit, isSubmitting, errors, touched, setFieldValue} = formik
+			const prefix = currenciesSymbol[accounts[values.sender].currency].symbol || ''
 			return (
 				<form onSubmit={handleSubmit}>
 					<AccountsInputContainer>
@@ -79,11 +83,12 @@ export default function TransfertRecordForm({accountsList, onSubmitted}){
 							{accountArr}
 						</Field>
 					</AccountsInputContainer>
-					<Field 	
-						value={values.amount}
+					<Field
+						as={CurrencyInput}
 						name="amount"
-						onChange={handleChange}
-						type="text"
+						prefix={prefix}
+						onChange={v => setFieldValue('amount', v)}
+						defaultValue={values.amount}
 						error={(errors.amount && (values.amount || touched.amount))}
 					/>
 					<Field
