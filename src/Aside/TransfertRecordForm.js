@@ -1,16 +1,22 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import Money from 'dinero.js'
+import Big from 'big.js'
 
 import { Field, FieldArea, Button } from '../Components/Field';
 
-import CurrencyInput from 'react-currency-input-field';
+import CurrencyInput, { formatValue } from 'react-currency-input-field';
 
 import currenciesSymbol from '../currenciesSymbol.json';
+import {quotes as currenciesRates} from '../currenciesRates.json';
 
 const AccountsInputContainer = styled.div`
 	/*border: 1px solid red;*/
+	display: flex;
+`
+const AmountsContainer = styled.div`
 	display: flex;
 `
 
@@ -18,19 +24,38 @@ const AccountsInputIcon = styled.div`
 	height: 36px;
 	width: 36px;
 	margin: 0 8px;
+	display:flex;
+	align-items: center;
+	justify-content: center;
 	/*border: 1px solid blue;*/
 `
 
+
+function getCurrencyRate(cur1, cur2){
+	return Big(currenciesRates[`USD${cur2}`]).div(currenciesRates[`USD${cur1}`])
+}
+function getAccountCurrency(account){
+
+}
+
 export default function TransfertRecordForm({accounts, onSubmitted}){
+	console.log(navigator.language)
 	const accountsList = Object.values(accounts)
+	const [currencyRate, setCurrencyRate] = useState(getCurrencyRate(accountsList[0].currency, accountsList[1].currency).toString())
+
 	const senderReceiverTest = (value, context, path) => {
 		return value !== context.from[0].value[path]
 	}
+
+	const getAccountCurrency = accountId => {
+		return accounts[accountId].currency
+	}
+
 	const initialValues = {
 		sender: accountsList[0].id,
 		receiver: accountsList[1].id,
 		amount: 0,
-		rate: 0,
+		rate: currencyRate,
 		date: '',
 		note: ''
 	}
@@ -60,6 +85,8 @@ export default function TransfertRecordForm({accounts, onSubmitted}){
 		{formik => {
 			const { values, handleChange, handleSubmit, isSubmitting, errors, touched, setFieldValue} = formik
 			const prefix = currenciesSymbol[accounts[values.sender].currency].symbol || ''
+			values.rate = currencyRate
+			const locale = navigator.language || 'en-US'
 			return (
 				<form onSubmit={handleSubmit}>
 					<AccountsInputContainer>
@@ -67,7 +94,13 @@ export default function TransfertRecordForm({accounts, onSubmitted}){
 							as="select"
 							value={values.sender}
 							name="sender"
-							onChange={handleChange}
+							onChange={e => {
+								setCurrencyRate(getCurrencyRate(
+									getAccountCurrency(e.target.value), 
+									getAccountCurrency(values.receiver)).toString()
+								);
+								handleChange(e);
+							}}
 							error={(errors.sender && (values.sender || touched.sender))}
 						>
 							{accountArr}
@@ -77,24 +110,39 @@ export default function TransfertRecordForm({accounts, onSubmitted}){
 							as="select"
 							value={values.receiver}
 							name="receiver"
-							onChange={handleChange}
+							onChange={e => {
+								setCurrencyRate(getCurrencyRate(
+									getAccountCurrency(values.sender),
+									getAccountCurrency(e.target.value) 
+									).toString()
+								);
+								handleChange(e)}}
 							error={(errors.receiver && (values.receiver || touched.receiver))}
 						>
 							{accountArr}
 						</Field>
 					</AccountsInputContainer>
+					<AmountsContainer>
+						<Field
+							as={CurrencyInput}
+							name="amount"
+							onValueChange={(v, n) => setFieldValue(n, v)}
+							intlConfig={{ locale: locale, currency: accounts[values.sender].currency }}
+							error={(errors.amount && (values.amount || touched.amount))}
+							value={values.amount}
+						/>
+						<AccountsInputIcon>=</AccountsInputIcon>
+						<Field
+							as='div'
+						>{formatValue({
+							value: Big(values.amount).times(Big(currencyRate)).toString(),
+							intlConfig: { locale: locale, currency: accounts[values.receiver].currency }})}
+						</Field>
+					</AmountsContainer>
 					<Field
-						as={CurrencyInput}
-						name="amount"
-						prefix={prefix}
-						onChange={v => setFieldValue('amount', v)}
-						defaultValue={values.amount}
-						error={(errors.amount && (values.amount || touched.amount))}
-					/>
-					<Field
-						value={values.rate}
+						value={currencyRate}
 						name="rate"
-						onChange={handleChange}
+						onChange={e => {setCurrencyRate(e.target.value);}}
 						type="number"
 						error={(errors.rate && (values.rate || touched.rate))}
 					/>
