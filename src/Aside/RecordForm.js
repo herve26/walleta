@@ -66,8 +66,9 @@ export default function RecordForm({accounts, onSubmitted}){
 						as={CurrencyInput}
 						name="amount"
 						prefix={prefix}
-						onChange={v => setFieldValue('amount', v)}
-						defaultValue={values.amount}
+						onValueChange={(v,n) => setFieldValue(n, v)}
+						intlConfig={{ locale: navigator.language || 'en-US', currency: accounts[values.account].currency }}
+						value={values.amount}
 						error={(errors.amount && (values.amount || touched.amount))}
 					/>
 					<Field

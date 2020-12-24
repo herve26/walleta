@@ -6,7 +6,7 @@ import SyncAltIcon from '@material-ui/icons/SyncAlt';
 
 import Record from './Record';
 
-export default function TransfertRecord({sender, receiver, isSender, note, amount, symbol, date}){
+export default function TransfertRecord({sender, receiver, isSender, note, amount, currency, date}){
 	return (
 		<div>
 			<Record 
@@ -16,7 +16,7 @@ export default function TransfertRecord({sender, receiver, isSender, note, amoun
 				note={note}
 				amount={amount}
 				date={date}
-				symbol={symbol}
+				currency={currency}
 				isAdd={!isSender}
 			/>
 		</div>

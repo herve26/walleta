@@ -37,6 +37,7 @@ const RecordListContainer = styled.div`
 `
 
 function MainView({balance, records}) {
+	console.log(records)
   	return (
 	  	<Container as="main">
 	  		<BalanceContainer as='h2'>
@@ -53,7 +54,8 @@ function MainView({balance, records}) {
 const mapState = (state) => {
 	return {
 		balance: getAccountsBalance(state),
-		records: getSelectedRecords(state)}
+		records: getSelectedRecords(state)
+	}
 }
 
 // Use Selector to get only selected accounts and records by accounts

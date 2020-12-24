@@ -50,8 +50,9 @@ const AmountContainer = styled.h4`
 const DateContainer = styled.span`
 	/*border: 1px solid yellow;*/
 `
-export default function Record({category, note, amount, date, color, accountColor, Icon, isAdd, symbol}){
+export default function Record({category, note, amount, date, color, accountColor, Icon, isAdd, currency}){
 	const amountMeta = {color: isAdd ? 'green': 'red', sign: isAdd ? '+' : '-'}
+	console.log(currency)
 	return (
 		<Container color={amountMeta.color}>
 			<IconContainer color={color}><Icon/></IconContainer>
@@ -60,7 +61,7 @@ export default function Record({category, note, amount, date, color, accountColo
 				<NoteContainer>{note}</NoteContainer>
 			</ContentContainer>
 			<MetaContainer>
-				<AmountContainer color={amountMeta.color}>{amountMeta.sign}{symbol}{amount}</AmountContainer>
+				<AmountContainer color={amountMeta.color}>{amountMeta.sign}{currency}{amount}</AmountContainer>
 				<DateContainer>{date}</DateContainer>
 			</MetaContainer>
 		</Container>

@@ -1,4 +1,5 @@
 import { createSelector } from '@reduxjs/toolkit';
+import Big from 'big.js'
 
 export const selectAccountsSelected = state => Object.values(state.accounts).filter(account => account.selected)
 export const selectAccounts = state => state.accounts
@@ -32,9 +33,13 @@ export const getAccountsWithRecords = createSelector(
 				let transformedRecord = {...records[recordId]}
 				if(transformedRecord.type === 'transfert'){
 					transformedRecord.isSender = transformedRecord.sender === account.id
+					if(!transformedRecord.isSender){
+						transformedRecord.amount = Big(transformedRecord.amount).times(Big(transformedRecord.rate)).toString()
+					}
 					transformedRecord.sender = extractAccountMeta(accounts[transformedRecord.sender])
 					transformedRecord.receiver = extractAccountMeta(accounts[transformedRecord.receiver]) 
 				}
+				transformedRecord.currency = account.currency
 				return transformedRecord
 			})
 			

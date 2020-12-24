@@ -53,7 +53,7 @@ export default function RecordList({records}){
 	console.log(records)
 	const recordList = records.map((record, index) => {
 		console.log(record)
-		let recordProp = {symbol: record.symbol, note: record.note, amount: parseInt(record.amount), date: record.date}
+		let recordProp = {symbol: record.symbol, note: record.note, amount: record.amount, currency: record.currency, date: record.date}
 		let Component = ''
 		if(record.type === 'transfert'){
 			Component = TransfertRecord
