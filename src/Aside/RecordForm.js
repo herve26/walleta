@@ -13,10 +13,6 @@ import currenciesSymbol from '../currenciesSymbol.json';
 const FieldArea = styled(Field)`
 	height: 64px;
 `
-const CurrencyInputContainer = styled(CurrencyInput)`
-	/*border: 1px solid red;*/
-`
-
 
 export default function RecordForm({accounts, onSubmitted}){
 	console.log(currenciesSymbol)
@@ -97,6 +93,6 @@ export default function RecordForm({accounts, onSubmitted}){
 }
 
 RecordForm.propTypes = {
-	accountsList: PropTypes.object.isRequired,
+	accounts: PropTypes.object.isRequired,
 	onSubmitted: PropTypes.func
 }
