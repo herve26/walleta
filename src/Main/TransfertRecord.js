@@ -10,7 +10,7 @@ export default function TransfertRecord({sender, receiver, isSender, note, amoun
 	return (
 		<div>
 			<Record 
-				category={`${sender.title} → ${receiver.title}`}
+				category={`${sender} → ${receiver}`}
 				Icon={SyncAltIcon}
 				color='blue'
 				note={note}

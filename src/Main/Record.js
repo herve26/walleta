@@ -26,7 +26,7 @@ const IconContainer = styled.span`
     background-color: ${({color}) => color};
     color: white;
 `
-const CategoryContainer = styled.h3`
+const CategoryContainer = styled.h4`
 	/*border: 1px solid yellow;*/
 	margin: 0;
 `

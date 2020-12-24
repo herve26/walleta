@@ -3,7 +3,10 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 import { PanelContainer } from '../Components/Panel';
+
 import Record from './Record';
+import TransfertRecord from './TransfertRecord';
+
 import categories from '../categories';
 import accountColors from '../colors.json';
 
@@ -47,21 +50,26 @@ function getType(type){
 	}
 }
 export default function RecordList({records}){
-	const recordList = records.filter(record => record.type !== 'transfert').map((record, index) => {
-		const category = getCategory(record.category)
-		const isAdd = getType(record.type)
+	console.log(records)
+	const recordList = records.map((record, index) => {
+		console.log(record)
+		let recordProp = {symbol: record.symbol, note: record.note, amount: parseInt(record.amount), date: record.date}
+		let Component = ''
+		if(record.type === 'transfert'){
+			Component = TransfertRecord
+			recordProp = {...recordProp, sender: record.sender.title, receiver: record.receiver.title, isSender: record.isSender}
+		}
+		else{
+			const category = getCategory(record.category)
+			const isAdd = getType(record.type)
+			recordProp = {...recordProp, isAdd, category: category.title, color: category.color, Icon: category.icon}
+			Component = Record
+		}
+		
 		return (
-			<Record
+			<Component
 				key={index}
-				category={category.title}
-				color={category.color}
-				Icon={category.icon}
-				isAdd={isAdd}
-				symbol={record.symbol}
-				note={record.note}
-				amount={record.amount}
-				date={record.date}
-				accountColor={accountColors[record.accountColor]}
+				{...recordProp}
 			/>
 		)
 	})

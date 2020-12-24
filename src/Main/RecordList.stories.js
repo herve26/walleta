@@ -17,7 +17,8 @@ const records = [
 	{category: '1,0', note: 'This was very expensive', amount: 1000, date: '12/12/2020', symbol: '$', type: 'expense'},
 	{category: '0,0', note: 'This was very expensive', amount: 1000, date: '12/12/2020', symbol: '$', type: 'expense'},
 	{category: '1', note: 'This was very expensive', amount: 1000, date: '12/12/2020', symbol: '$', type: 'expense'},
-	{category: '1,1', note: 'This was very expensive', amount: 1000, date: '12/12/2020', symbol: '$', type: 'expense'}
+	{category: '1,1', note: 'This was very expensive', amount: 1000, date: '12/12/2020', symbol: '$', type: 'expense'},
+	{category: '1,1', note: 'This was very expensive', amount: 1000, date: '12/12/2020', symbol: '$', type: 'transfert'}
 ]
 export const Default = Template.bind({})
 Default.args = {
